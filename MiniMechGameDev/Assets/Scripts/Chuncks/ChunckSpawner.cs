@@ -41,13 +41,16 @@ public class ChunckSpawner : MonoBehaviour {
 
         arrayCounter = chunckScripts.Length-1;
         interChunckCouter = interChunckScript.Length - 1;
+
+        StartCoroutine(loop());
     }
 
-
-    void FixedUpdate()
+    IEnumerator loop ()
     {
-        if (Time.time % spawnTime == 0) {
+        while (true)
+        {
             SpawnAChunck();
+            yield return new WaitForSeconds(spawnTime / NonDestroyableData.GameSpeed);
         }
     }
 
@@ -57,6 +60,7 @@ public class ChunckSpawner : MonoBehaviour {
 
     void SpawnAChunck()
     {
+        NonDestroyableData.GameSpeed /= 1.1f;
         if (SpawnInterChunck) {
 
             if (arrayCounter > 0) {

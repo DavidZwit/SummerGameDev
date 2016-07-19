@@ -35,7 +35,7 @@ public class BasicChunck : MonoBehaviour, IChunck {
     {
         while (active)
         {
-            transform.Translate(0, 0, -moveSpeed / 100);
+            transform.Translate(0, 0, (-moveSpeed * NonDestroyableData.GameSpeed) / 100);
             yield return returnSeconds;
         }
 

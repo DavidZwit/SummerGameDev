@@ -23,7 +23,7 @@ public class ChunckSpawner : MonoBehaviour {
     {
         while (true)
         {
-            chunckScripts[Random.Range(0, chunckScripts.Length)].Spawn(0, 0.5f);
+            chunckScripts[Random.Range(0, chunckScripts.Length)].Spawn(0, 5);
             //spawn logic
 
             yield return new WaitForSeconds(spawnTime);

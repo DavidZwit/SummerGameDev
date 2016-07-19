@@ -3,64 +3,46 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEditor.VersionControl;
 
 public class Ball : MonoBehaviour {
 
-    public GameObject PlayerOnePos;
-    public GameObject PlayerTwoPos;
-    bool shootBack = false;
-    float passTimer = 2;
-    
+	bool shootBack = false;
+	float shootTime = 2;
+	public GameObject PlayerOnePos;
+	public GameObject PlayerTwoPos;
 
+	private GameObject _target;
+	private bool ShouldIMove = true;
 
-    void Start ()
-    {
-        StartCoroutine(shootTimer());
+	void Start() {
+		StartCoroutine (ShootLoop());
 	}
-	
-    IEnumerator shootTimer()
-    {
-        while (true)
-        {
-            StartCoroutine(Shoot(shootBack ? PlayerOnePos.transform : PlayerTwoPos.transform, new Vector3(0, 0, 2)));
-            shootBack = !shootBack;
-            yield return new WaitForSeconds(passTimer);
-        }
 
-    }
+	void Update()
+	{
+		transform.position = Vector3.Lerp(transform.position, _target.transform.position, 0.2f);
 
-	void Update ()
-    {
-       
-    }
-   
-    void OnTriggerEnter(Collider _Col)
-    {
-        
-        if(_Col.tag == "Hostile")
-        {
-            Debug.Log("hit u");
+	}
+	IEnumerator ShootLoop()
+	{
+		
+		while (true)
+		{
+			ShouldIMove = true;
+			if (shootBack) {
+				_target = PlayerOnePos;
 
-        }
-    }
+				Debug.Log (PlayerOnePos.transform.position);
+				shootBack = false;
 
-    IEnumerator Shoot(Transform targetPos, Vector3 offset)
-    {
-        float distance= 5000;
-        while (distance > 0.05f)
-        {
-            Vector3 calPos = transform.position - offset;
-            distance = Mathf.Abs(calPos.x - targetPos.position.x);
-
-            transform.position -= new Vector3(
-                (calPos.x - targetPos.position.x) / 20,
-                0,
-                (calPos.z - targetPos.position.z) / 20
-            );
-
-            calPos += offset;
-            yield return new WaitForFixedUpdate();
-        }
-        transform.position = targetPos.position + offset;
-    }
+			} else {
+				_target = PlayerTwoPos;
+				Debug.Log (PlayerTwoPos.transform.position);
+				shootBack = true;
+			}
+			yield return new WaitForSeconds(2f);
+		}
+	}
 }
+

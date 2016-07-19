@@ -6,17 +6,17 @@ using System;
 public class Scroller : MonoBehaviour {
 
 	private Scrollbar _scrollBar;
-	private  Vector3 _oldPos; 
+	[SerializeField] private float _multiplier;
 	[SerializeField] private GameObject _playerMovement;
 	void Start()
 	{
-		_oldPos = transform.position;
+
 		_scrollBar = GetComponent<Scrollbar> ();
 
 	}
 	public void Pressed()
 	{
-		ChangeZ<IMoveable> (_playerMovement, x => x.ChangeMyZ (_scrollBar.value));
+		ChangeZ<IMoveable> (_playerMovement, x => x.ChangeMyZ (_scrollBar.value, _multiplier));
 	}
 
 	void ChangeZ<T>(GameObject target, Action<T> move)

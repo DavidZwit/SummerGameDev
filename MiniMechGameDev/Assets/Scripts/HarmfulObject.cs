@@ -22,6 +22,7 @@ public class HarmfulObject : MonoBehaviour {
         if(_Col.tag == "Player")
         {
             Debug.Log("animate me");
+            
             AnimObjec.SetTrigger("Active");
         }
     }

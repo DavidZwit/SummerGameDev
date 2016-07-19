@@ -10,12 +10,13 @@ public class Ball : MonoBehaviour {
     public GameObject PlayerTwoPos;
     bool shootBack = false;
     float passTimer = 2;
-    
+    private ShakeYaBuddy Shake;
 
 
     void Start ()
     {
         StartCoroutine(shootTimer());
+        Shake = GetComponent<ShakeYaBuddy>();
 	}
 	
     IEnumerator shootTimer()
@@ -40,7 +41,8 @@ public class Ball : MonoBehaviour {
         if(_Col.tag == "Hostile")
         {
             Debug.Log("hit u");
-
+            Shake.shakeDuration = 0.3f;
+            
         }
     }
 

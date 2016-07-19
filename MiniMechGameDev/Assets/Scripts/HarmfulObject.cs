@@ -19,12 +19,11 @@ public class HarmfulObject : MonoBehaviour {
 	}
     void OnTriggerEnter(Collider _Col)
     {
-		Debug.Log (_Col);
-		if(_Col.gameObject.tag == "Player")
+        if(_Col.tag == "Player")
         {
             Debug.Log("animate me");
+            
             AnimObjec.SetTrigger("Active");
         }
     }
-
 }

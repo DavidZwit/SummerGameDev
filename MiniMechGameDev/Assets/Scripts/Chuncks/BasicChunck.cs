@@ -21,7 +21,7 @@ public class BasicChunck : MonoBehaviour, IChunck {
     public bool Spawn(float yPos, float unitsPerSecond)
     {
         //if (!)
-        gameObject.transform.position = new Vector3(transform.position.x, yPos, transform.position.z);
+        gameObject.transform.position = new Vector3(0, yPos, 0);
         moveSpeed = unitsPerSecond;
         Active = true;
         return true;
@@ -51,17 +51,19 @@ public class BasicChunck : MonoBehaviour, IChunck {
 
     bool Active
     {
-        get { return active; }
+        get {
+            return active; }
         set {
-            active = value;        
+            bool oldActive = active;
+            active = value;
             transform.position = new Vector3(value ? 0 : 500, 0, 0);
-            if (value) StartCoroutine(Move());
+            if (value && !oldActive) StartCoroutine(Move());
         }
     }
 
     public bool CanHit(int left, int right)
     {
-        if (HitPosibilities[left -1].canHit[right -1])
+        if (HitPosibilities[left - 1].canHit[right - 1])
             return true;
         else return false;
     }

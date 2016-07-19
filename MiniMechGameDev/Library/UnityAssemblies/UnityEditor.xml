@@ -2044,12 +2044,6 @@ Units is normalized time.</para>
         <para>Get the GUID for the asset at path.</para>
       </summary>
       <param name="path">Filesystem path for the asset.</param>
-<<<<<<< HEAD
-=======
-      <returns>
-        <para>GUID</para>
-      </returns>
->>>>>>> refs/remotes/origin/master
     </member>
     <member name="M:UnityEditor.AssetDatabase.ClearLabels(UnityEngine.Object)">
       <summary>
@@ -2171,18 +2165,6 @@ Units is normalized time.</para>
         <para>Array of asset bundle names.</para>
       </returns>
     </member>
-<<<<<<< HEAD
-=======
-    <member name="M:UnityEditor.AssetDatabase.GetAssetDependencyHash(System.String)">
-      <summary>
-        <para>Returns the hash of all the dependencies of an asset.</para>
-      </summary>
-      <param name="path">Path to the asset.</param>
-      <returns>
-        <para>Aggregate hash.</para>
-      </returns>
-    </member>
->>>>>>> refs/remotes/origin/master
     <member name="M:UnityEditor.AssetDatabase.GetAssetOrScenePath(UnityEngine.Object)">
       <summary>
         <para>Returns the path name relative to the project folder where the asset is stored.</para>
@@ -2464,12 +2446,6 @@ Units is normalized time.</para>
       </summary>
       <param name="assetPath">Path of the asset to load.</param>
       <param name="type">Data type of the asset.</param>
-<<<<<<< HEAD
-=======
-      <returns>
-        <para>The asset matching the parameters</para>
-      </returns>
->>>>>>> refs/remotes/origin/master
     </member>
     <member name="M:UnityEditor.AssetDatabase.LoadMainAssetAtPath(System.String)">
       <summary>
@@ -2994,11 +2970,7 @@ Amount of compression. The value roughly corresponds to the ratio between the re
     </member>
     <member name="F:UnityEditor.BuildOptions.AcceptExternalModificationsToPlayer">
       <summary>
-<<<<<<< HEAD
         <para>Used when building Xcode (iPhone) or Eclipse (Android) projects.</para>
-=======
-        <para>Used when building Xcode (iOS) or Eclipse (Android) projects.</para>
->>>>>>> refs/remotes/origin/master
       </summary>
     </member>
     <member name="F:UnityEditor.BuildOptions.AllowDebugging">
@@ -3439,14 +3411,11 @@ These will be used as asset names, which you can then pass to AssetBundle.Load t
         <para>Build a Wii U standalone.</para>
       </summary>
     </member>
-<<<<<<< HEAD
     <member name="F:UnityEditor.BuildTarget.WP8Player">
       <summary>
         <para>Build a Windows Phone 8 player.</para>
       </summary>
     </member>
-=======
->>>>>>> refs/remotes/origin/master
     <member name="F:UnityEditor.BuildTarget.WSAPlayer">
       <summary>
         <para>Build an Windows Store Apps player.</para>
@@ -3547,14 +3516,11 @@ These will be used as asset names, which you can then pass to AssetBundle.Load t
         <para>Nintendo Wii U target.</para>
       </summary>
     </member>
-<<<<<<< HEAD
     <member name="F:UnityEditor.BuildTargetGroup.WP8">
       <summary>
         <para>Windows Phone 8 target.</para>
       </summary>
     </member>
-=======
->>>>>>> refs/remotes/origin/master
     <member name="F:UnityEditor.BuildTargetGroup.WSA">
       <summary>
         <para>Windows Store Apps target.</para>
@@ -17240,14 +17206,6 @@ To force a reload of the mask, simply set  ModelImporterClipAnimation.maskSource
         <para></para>
       </summary>
     </member>
-<<<<<<< HEAD
-=======
-    <member name="F:UnityEditor.PlayerSettings.TizenCapability.AppManagerLaunch">
-      <summary>
-        <para></para>
-      </summary>
-    </member>
->>>>>>> refs/remotes/origin/master
     <member name="F:UnityEditor.PlayerSettings.TizenCapability.Bluetooth">
       <summary>
         <para></para>
@@ -17278,14 +17236,6 @@ To force a reload of the mask, simply set  ModelImporterClipAnimation.maskSource
         <para></para>
       </summary>
     </member>
-<<<<<<< HEAD
-=======
-    <member name="F:UnityEditor.PlayerSettings.TizenCapability.Camera">
-      <summary>
-        <para></para>
-      </summary>
-    </member>
->>>>>>> refs/remotes/origin/master
     <member name="F:UnityEditor.PlayerSettings.TizenCapability.ContactRead">
       <summary>
         <para></para>
@@ -17331,19 +17281,6 @@ To force a reload of the mask, simply set  ModelImporterClipAnimation.maskSource
         <para></para>
       </summary>
     </member>
-<<<<<<< HEAD
-=======
-    <member name="F:UnityEditor.PlayerSettings.TizenCapability.Haptic">
-      <summary>
-        <para></para>
-      </summary>
-    </member>
-    <member name="F:UnityEditor.PlayerSettings.TizenCapability.Internet">
-      <summary>
-        <para></para>
-      </summary>
-    </member>
->>>>>>> refs/remotes/origin/master
     <member name="F:UnityEditor.PlayerSettings.TizenCapability.KeyManager">
       <summary>
         <para></para>
@@ -17359,14 +17296,6 @@ To force a reload of the mask, simply set  ModelImporterClipAnimation.maskSource
         <para></para>
       </summary>
     </member>
-<<<<<<< HEAD
-=======
-    <member name="F:UnityEditor.PlayerSettings.TizenCapability.MediaStorage">
-      <summary>
-        <para></para>
-      </summary>
-    </member>
->>>>>>> refs/remotes/origin/master
     <member name="F:UnityEditor.PlayerSettings.TizenCapability.MessageRead">
       <summary>
         <para></para>
@@ -17432,14 +17361,6 @@ To force a reload of the mask, simply set  ModelImporterClipAnimation.maskSource
         <para></para>
       </summary>
     </member>
-<<<<<<< HEAD
-=======
-    <member name="F:UnityEditor.PlayerSettings.TizenCapability.SystemSettings">
-      <summary>
-        <para></para>
-      </summary>
-    </member>
->>>>>>> refs/remotes/origin/master
     <member name="F:UnityEditor.PlayerSettings.TizenCapability.Telephony">
       <summary>
         <para></para>
@@ -17465,7 +17386,6 @@ To force a reload of the mask, simply set  ModelImporterClipAnimation.maskSource
         <para>tvOS specific player settings.</para>
       </summary>
     </member>
-<<<<<<< HEAD
     <member name="T:UnityEditor.PlayerSettings.WiiU">
       <summary>
         <para>Wii U specific player settings.</para>
@@ -17599,16 +17519,6 @@ To force a reload of the mask, simply set  ModelImporterClipAnimation.maskSource
     <member name="P:UnityEditor.PlayerSettings.WiiU.tvStartupScreen">
       <summary>
         <para>Image displayed on TV during startup.</para>
-=======
-    <member name="P:UnityEditor.PlayerSettings.tvOS.sdkVersion">
-      <summary>
-        <para>Active tvOS SDK version used for build.</para>
-      </summary>
-    </member>
-    <member name="P:UnityEditor.PlayerSettings.tvOS.targetOSVersion">
-      <summary>
-        <para>Deployment minimal version of tvOS.</para>
->>>>>>> refs/remotes/origin/master
       </summary>
     </member>
     <member name="T:UnityEditor.PlayerSettings.WSACompilationOverrides">
@@ -21227,44 +21137,6 @@ Values match the ProceduralMaterial::ProceduralLoadingBehavior enum.</param>
       </summary>
       <param name="path"></param>
     </member>
-<<<<<<< HEAD
-=======
-    <member name="T:UnityEditor.tvOSSdkVersion">
-      <summary>
-        <para>Supported tvOS SDK versions.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEditor.tvOSSdkVersion.Device">
-      <summary>
-        <para>Device SDK.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEditor.tvOSSdkVersion.Simulator">
-      <summary>
-        <para>Simulator SDK.</para>
-      </summary>
-    </member>
-    <member name="T:UnityEditor.tvOSTargetOSVersion">
-      <summary>
-        <para>Supported tvOS deployment versions.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEditor.tvOSTargetOSVersion.tvOS_9_0">
-      <summary>
-        <para>Target tvOS 9.0.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEditor.tvOSTargetOSVersion.tvOS_9_1">
-      <summary>
-        <para>Target tvOS 9.1.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEditor.tvOSTargetOSVersion.Unknown">
-      <summary>
-        <para>Unknown tvOS version, managed by user.</para>
-      </summary>
-    </member>
->>>>>>> refs/remotes/origin/master
     <member name="T:UnityEditor.UIOrientation">
       <summary>
         <para>Default mobile device orientation.</para>

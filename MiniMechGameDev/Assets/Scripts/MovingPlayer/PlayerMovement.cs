@@ -10,20 +10,21 @@ public interface IMoveable
 public class PlayerMovement : MonoBehaviour, IMoveable {
 
 	private Vector3 _newPos;
- 	
+	private float _startZ;
 
 	void Start()
 	{
 		_newPos = transform.position;
+		_startZ = _newPos.z;
 	}
 	public void ChangeMyZ(float value, float multiplier)
 	{
-		_newPos.z = 20 + (value * multiplier);
+		_newPos.z = _startZ + (value * multiplier);
 		transform.position = _newPos;
 	}
 	public void ChangeMyZSmooth(float value, float multiplier)
 	{
-			_newPos.z = 20 + (value * multiplier);
+		_newPos.z = _startZ + (value * multiplier);
 		StartCoroutine (SmoothMove (0.01f));
 	}
 

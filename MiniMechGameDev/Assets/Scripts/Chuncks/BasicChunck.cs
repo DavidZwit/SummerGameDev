@@ -4,26 +4,28 @@ using System.Collections;
 
 public class BasicChunck : MonoBehaviour, IChunck { 
     float moveSpeed = 0;
-    bool active;
+    bool active = false;
 
     [System.Serializable]
     class bools { public bool[] canHit = new bool[4]; }
     [SerializeField]
     bools[] HitPosibilities = new bools[4];
 
+    IEnumerator move;
 
     void Start()
     {
-        Active = false;
-        StartCoroutine(Move());
+        move = Move();
+        //  Active = false;
+        //StartCoroutine(Move());
     }
 
-    public bool Spawn(float yPos, float unitsPerSecond)
+    public bool Spawn(float zPos, float unitsPerSecond)
     {
         //if (!)
-        gameObject.transform.position = new Vector3(0, yPos, 0);
-        moveSpeed = unitsPerSecond;
         Active = true;
+        transform.position = new Vector3(0, 0, zPos);
+        moveSpeed = unitsPerSecond;
         return true;
     }
 
@@ -56,7 +58,7 @@ public class BasicChunck : MonoBehaviour, IChunck {
         set {
             bool oldActive = active;
             active = value;
-            transform.position = new Vector3(value ? 0 : 500, 0, 0);
+            transform.position = new Vector3(0, 0, transform.position.z);
             if (value && !oldActive) StartCoroutine(Move());
         }
     }

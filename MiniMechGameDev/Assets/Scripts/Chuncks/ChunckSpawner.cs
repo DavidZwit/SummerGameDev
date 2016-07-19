@@ -16,21 +16,27 @@ public class ChunckSpawner : MonoBehaviour {
     int spawnTime = 1;
     [SerializeField]
     float speed = 15;
+    float chunckLength = 20;
 
     void Start()
     {
         chunckScripts = new IChunck[chuncks.Length];
 
-        for (var i = 0; i < chuncks.Length; i++) {
+        float spawnPos = -100;
+        for (var i =0; i < chuncks.Length; i++) {
             GameObject chunck = Instantiate(chuncks[i], new Vector3(), new Quaternion()) as GameObject;
             chunckScripts[i] = chunck.GetComponent<IChunck>();
+
         }
 
-        interChunckScript = new IChunck[20];
-        for (int i = 0; i < 20; i++) {
+        interChunckScript = new IChunck[5];
+        for (int i = 5-1; i >= 0; i--) {
 
             GameObject currInterChunck = Instantiate(interChunck, new Vector3(), new Quaternion())as GameObject;
             interChunckScript[i] = currInterChunck.GetComponent<IChunck>();
+
+            interChunckScript[i].Spawn(spawnPos, speed);
+            spawnPos += chunckLength;
         }
 
         arrayCounter = chunckScripts.Length-1;
@@ -45,7 +51,7 @@ public class ChunckSpawner : MonoBehaviour {
         }
     }
 
-    bool SpawnInterChunck = false;
+    bool SpawnInterChunck = true;
     int arrayCounter;
     int interChunckCouter;
 
@@ -53,18 +59,21 @@ public class ChunckSpawner : MonoBehaviour {
     {
         if (SpawnInterChunck) {
 
-            if (arrayCounter >= 0) {
+            if (arrayCounter > 0) {
                 interChunckScript[interChunckCouter].Spawn(0, speed);
                 interChunckCouter--;
-            } else interChunckCouter = interChunckScript.Length-1;
-
+            } else {
+                interChunckCouter = interChunckScript.Length-1;
+                interChunckScript[0].Spawn(0, speed);
+            }
         } else {
 
-            if (arrayCounter >= 0) {
+            if (arrayCounter > 0) {
                 chunckScripts[arrayCounter].Spawn(0, speed);
                 arrayCounter--;
             } else {
                 arrayCounter = chunckScripts.Length-1;
+                chunckScripts[0].Spawn(0, speed);
             }
 
         }

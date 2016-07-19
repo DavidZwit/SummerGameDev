@@ -10,6 +10,8 @@ public class Ball : MonoBehaviour {
     public GameObject PlayerTwoPos;
     bool shootBack = false;
     float passTimer = 2;
+    
+
 
     void Start ()
     {

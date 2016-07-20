@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using System;
 using UnityEditor.VersionControl;
 
-public class Ball : MonoBehaviour {
+public class Ball : Singleton<Ball> {
 
 	bool shootBack = false;
 	float shootTime = 2;
@@ -56,5 +56,6 @@ public class Ball : MonoBehaviour {
             Shake.shakeDuration = 0.4f;
         }
     }
+
 }
 

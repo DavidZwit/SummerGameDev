@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -56,6 +57,11 @@ public class Ball : Singleton<Ball>
         {
             if (DistanceToTarget <= ReceiveOffset)
             {
+                if(Target.GetComponent<PlayerInfo>().Left)
+                    PlayerPassLineTool.Instance.CurrentPlayer = 1;
+                else
+                    PlayerPassLineTool.Instance.CurrentPlayer = -1;
+
                 ShotBall = false;
                 return true;
             }
@@ -76,7 +82,7 @@ public class Ball : Singleton<Ball>
 	void Start()
     {
         if (Target == null)
-            Target = GameObject.Find("P1_TEST").transform;
+            Target = PlayerPassLineTool.Instance.Players[0].transform;
 
         if (Origin == null)
             Origin = Target;
@@ -86,13 +92,13 @@ public class Ball : Singleton<Ball>
 
 	void Update()
 	{
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.D))
         {
-            PassBall(GameObject.Find("P1_TEST").transform, 5, GameObject.Find("P2_TEST").transform);
+            PassBall(PlayerPassLineTool.Instance.Players[0].transform, 5, PlayerPassLineTool.Instance.Players[1].transform);
         }
-        else if(Input.GetKeyDown(KeyCode.D))
+        else if(Input.GetKeyDown(KeyCode.A))
         {
-            PassBall(GameObject.Find("P2_TEST").transform, 5, GameObject.Find("P1_TEST").transform);
+            PassBall(PlayerPassLineTool.Instance.Players[1].transform, 5, PlayerPassLineTool.Instance.Players[0].transform);
         }
 
         if (!ReceivedBall)
@@ -102,6 +108,17 @@ public class Ball : Singleton<Ball>
         if (!UpdateScore) return;
 
         ScoreManager.Instance.Scores.AddToScore(ScoreManager.Instance.SmallScore);
+        Text[] AllText = FindObjectsOfType<Text>();
+        for (int i = 0; i < AllText.Length; i++)
+        {
+            if(AllText[i].transform.name.Contains("CurrentScore"))
+            {
+                AllText[i].text = "Score: " + ScoreManager.Instance.Scores.CurrScore.ToString();
+                break;
+            }
+        }
+
+
         // Debug.Log("Current score : " + ScoreManager.Instance.Scores.CurrScore);
     }
 

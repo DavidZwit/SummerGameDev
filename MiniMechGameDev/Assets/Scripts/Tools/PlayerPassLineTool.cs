@@ -8,10 +8,18 @@ using System.Collections.Generic;
 #if UNITY_EDITOR
 [ExecuteInEditMode]
 #endif
-public class PlayerPassLineTool : MonoBehaviour
+public class PlayerPassLineTool : Singleton<PlayerPassLineTool>
 {
     public bool enabled = true;
     private int playerCount = 2;
+    
+    public List<GameObject> Players
+    {
+        get
+        {
+            return players;
+        }
+    }
     private List<GameObject> players = new List<GameObject>();
     public LayerMask rayHit;
 
@@ -34,13 +42,28 @@ public class PlayerPassLineTool : MonoBehaviour
     }
     #endif
 
+    void Awake()
+    {
+        GetPlayers();
+    }
+
     private void GetPlayers()
     {
         if (players.Count >= 2) return;
+
+        PlayerInfo[] p = FindObjectsOfType<PlayerInfo>();
+        int PlayerInfoCount = p.Length;
+
+        for (int i = 0; i < 2; i++)
+        {
+            if (p[i] == null) Debug.Log("Missing a player object");
+            players.Add(p[i].transform.gameObject);
+        }
+        /*
         for (int i = 0; i < playerCount; i++)
         {
             players.Add( transform.GetChild(i).transform.gameObject );
-        }
+        }*/
     }
 
     private void DisplayBeam()

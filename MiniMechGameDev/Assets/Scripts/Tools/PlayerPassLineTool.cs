@@ -108,6 +108,7 @@ public class PlayerPassLineTool : Singleton<PlayerPassLineTool>
 
     void SetBeamColor(Color c)
     {
+        Debug.Log("Set a color: " + c);
         this.transform.GetComponent<Renderer>().material.color = c;
     }
 

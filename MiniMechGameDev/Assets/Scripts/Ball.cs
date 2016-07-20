@@ -58,9 +58,9 @@ public class Ball : Singleton<Ball>
             if (DistanceToTarget <= ReceiveOffset)
             {
                 if(Target.GetComponent<PlayerInfo>().Left)
-                    PlayerPassLineTool.Instance.CurrentPlayer = 1;
-                else
                     PlayerPassLineTool.Instance.CurrentPlayer = -1;
+                else
+                    PlayerPassLineTool.Instance.CurrentPlayer = 1;
 
                 ShotBall = false;
                 return true;
@@ -92,17 +92,33 @@ public class Ball : Singleton<Ball>
 
 	void Update()
 	{
-        if(Input.GetKeyDown(KeyCode.D))
+        if(Input.GetKeyDown(KeyCode.A))
         {
             PassBall(PlayerPassLineTool.Instance.Players[0].transform, 5, PlayerPassLineTool.Instance.Players[1].transform);
         }
-        else if(Input.GetKeyDown(KeyCode.A))
+        else if(Input.GetKeyDown(KeyCode.D))
         {
             PassBall(PlayerPassLineTool.Instance.Players[1].transform, 5, PlayerPassLineTool.Instance.Players[0].transform);
         }
 
         if (!ReceivedBall)
-            transform.position = Vector3.Lerp(transform.position, Target.position, PassSpeed * Time.deltaTime);
+        {
+            //transform.position = Vector3.Lerp(transform.position, Target.position, PassSpeed * Time.deltaTime);
+            Rigidbody rb = this.transform.GetComponent<Rigidbody>();
+
+            //rb.AddForce((Target.position - transform.position) * 50 * Time.deltaTime);
+            rb.AddForce((Target.position - transform.position) * 6f * Time.smoothDeltaTime, ForceMode.Impulse);
+
+            if(rb.drag <= 5f)
+                rb.drag += (1.45f / DistanceToTarget);
+        }
+        else
+        {
+            this.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            this.transform.GetComponent<Rigidbody>().drag = 0;
+        }
+
+        
 
 
         if (!UpdateScore) return;

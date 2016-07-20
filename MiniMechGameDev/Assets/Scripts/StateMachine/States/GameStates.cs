@@ -10,6 +10,7 @@ namespace GameStates
         public void Enter(GameObject theObject)
         {
 			Debug.Log (" Idle Enter ");
+            NonDestroyableData.GameSpeed = 1;
         }
 
         public bool Reason()
@@ -21,7 +22,13 @@ namespace GameStates
 			}
 
 			*/
-			returnState = StatesEnum.slomo;
+
+            if (NonDestroyableData.currentChunck != null)
+            {
+			    returnState = StatesEnum.slomo;
+                return false;
+            }
+
 			return true;
         }
 
@@ -42,6 +49,10 @@ namespace GameStates
         GameObject obj;
         StatesEnum returnState;
 
+        bool shouldReturn = false;
+        float startTime;
+        float timeLeft;
+
         public void Enter(GameObject theObject)
         {
 			Debug.Log (" Slomo Enter ");
@@ -52,6 +63,14 @@ namespace GameStates
 			 * Set it into a variable.
 			 */
 			NonDestroyableData.GameSpeed = 0.2f;
+
+            startTime = Time.time;
+            timeLeft = Time.time;
+            shouldReturn = false;
+
+            returnState = StatesEnum.idle;
+
+            NonDestroyableData.currentChunck = null;
         }
 
         public bool Reason()
@@ -70,18 +89,25 @@ namespace GameStates
 			 * }
 			 */
 
-            return true;
+            return !shouldReturn;
         }
 
         public void Act()
         {
-
+            if (timeLeft - startTime  >= 2) {
+                Exit();
+            } else timeLeft += Time.deltaTime;
         }
 
         public StatesEnum Leave()
         {
 			NonDestroyableData.GameSpeed = 1f;
             return returnState;
+        }
+
+        void Exit ()
+        {
+            shouldReturn = true;
         }
     }
 

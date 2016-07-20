@@ -1,143 +1,59 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System;
+using UnityEditor.VersionControl;
 
-public class Ball : Singleton<Ball>
-{
+public class Ball : Singleton<Ball> {
 
-    [Range(0,5)]
-    public float PassSpeed = 2;
-    private Transform target;
-    public Transform Target
-    {
-        get { return target; }
-        set { target = value; }
-    }
+	bool shootBack = false;
+	float shootTime = 2;
+	public GameObject PlayerOnePos;
+	public GameObject PlayerTwoPos;
 
-    private Transform origin;
-    public Transform Origin
-    {
-        get { return origin; }
-        set { origin = value; }
-    }
-
-    private bool shotBall;
-    public bool ShotBall
-    {
-        get
-        {
-            return shotBall;
-        }
-        set
-        {
-            if (value) UpdatedCheck = false;
-            shotBall = value;
-        }
-    }
-
-    private bool UpdatedCheck = false;
-    private bool UpdateScore
-    {
-        get
-        {
-            if(ReceivedBall && Target != Origin && !UpdatedCheck)
-            {
-                UpdatedCheck = true;
-                return true;
-            }
-
-            return false;
-        }
-    }
-
-    private bool ReceivedBall
-    {
-        get
-        {
-            if (DistanceToTarget <= ReceiveOffset)
-            {
-                if(Target.GetComponent<PlayerInfo>().Left)
-                    PlayerPassLineTool.Instance.CurrentPlayer = 1;
-                else
-                    PlayerPassLineTool.Instance.CurrentPlayer = -1;
-
-                ShotBall = false;
-                return true;
-            }
-
-            return false;
-        }
-    }
-
-    private float DistanceToTarget
-    {
-        get { return Vector3.Distance(this.transform.position, target.position); }
-    }
-
-    [Range(0, 5)]
-    public float ReceiveOffset = 2;
-
+	private GameObject _target;
+	private bool ShouldIMove = true;
+    private ShakeYaBuddy Shake;
 
 	void Start()
     {
-        if (Target == null)
-            Target = PlayerPassLineTool.Instance.Players[0].transform;
-
-        if (Origin == null)
-            Origin = Target;
-
-    }
-
+		StartCoroutine (ShootLoop());
+        Shake = GetComponent<ShakeYaBuddy>();
+	}
 
 	void Update()
 	{
-        if(Input.GetKeyDown(KeyCode.D))
-        {
-            PassBall(PlayerPassLineTool.Instance.Players[0].transform, 5, PlayerPassLineTool.Instance.Players[1].transform);
-        }
-        else if(Input.GetKeyDown(KeyCode.A))
-        {
-            PassBall(PlayerPassLineTool.Instance.Players[1].transform, 5, PlayerPassLineTool.Instance.Players[0].transform);
-        }
+		transform.position = Vector3.Lerp(transform.position, _target.transform.position, 0.2f);
 
-        if (!ReceivedBall)
-            transform.position = Vector3.Lerp(transform.position, Target.position, PassSpeed * Time.deltaTime);
+	}
+	IEnumerator ShootLoop()
+	{
+		
+		while (true)
+		{
+			ShouldIMove = true;
+			if (shootBack) {
+				_target = PlayerOnePos;
 
+				Debug.Log (PlayerOnePos.transform.position);
+				shootBack = false;
 
-        if (!UpdateScore) return;
-
-        ScoreManager.Instance.Scores.AddToScore(ScoreManager.Instance.SmallScore);
-        Text[] AllText = FindObjectsOfType<Text>();
-        for (int i = 0; i < AllText.Length; i++)
-        {
-            if(AllText[i].transform.name.Contains("CurrentScore"))
-            {
-                AllText[i].text = "Score: " + ScoreManager.Instance.Scores.CurrScore.ToString();
-                break;
-            }
-        }
-
-
-        // Debug.Log("Current score : " + ScoreManager.Instance.Scores.CurrScore);
-    }
-
-    public void PassBall(Transform t, float s, Transform o)
-    {
-        ShotBall = true;
-        // Debug.Log("Pass ball from : " + t.transform.position + ", to : " + o.transform.position);
-        Target = t;
-        PassSpeed = s;
-        Origin = o;
-    }
+			} else {
+				_target = PlayerTwoPos;
+				Debug.Log (PlayerTwoPos.transform.position);
+				shootBack = true;
+			}
+			yield return new WaitForSeconds(2f);
+		}
+	}
 
     void OnTriggerEnter(Collider _col)
     {
+        Debug.Log("hit");
         if(_col.tag == "Obstacles")
         {
-            // Debug.Log("Hit an obstacle, attempting to go back to : " + Origin.transform.name);
-            PassBall(Origin, PassSpeed/1.5f, Origin);
-            CameraShaker.Instance.shakeDuration = .4f;
+            Shake.shakeDuration = 0.4f;
         }
     }
 

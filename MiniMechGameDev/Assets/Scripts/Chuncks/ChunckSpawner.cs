@@ -15,7 +15,7 @@ public class ChunckSpawner : MonoBehaviour {
     [SerializeField]
     int spawnTime = 1;
     [SerializeField]
-    float speed = 15;
+    float speed;
     float chunckLength = 20;
 
     void Start()
@@ -26,62 +26,110 @@ public class ChunckSpawner : MonoBehaviour {
         for (var i =0; i < chuncks.Length; i++) {
             GameObject chunck = Instantiate(chuncks[i], new Vector3(), new Quaternion()) as GameObject;
             chunckScripts[i] = chunck.GetComponent<IChunck>();
-
+            chunckScripts[i].Spawn(-800, speed);
         }
 
-        interChunckScript = new IChunck[5];
-        for (int i = 5-1; i >= 0; i--) {
+        interChunckScript = new IChunck[chuncks.Length];
+        for (int i = interChunckScript.Length-1; i >= 0; i--) {
 
             GameObject currInterChunck = Instantiate(interChunck, new Vector3(), new Quaternion())as GameObject;
             interChunckScript[i] = currInterChunck.GetComponent<IChunck>();
 
-            interChunckScript[i].Spawn(spawnPos, speed);
+            if (i != interChunckScript.Length -1) interChunckScript[i].Spawn(spawnPos, speed);
+
+            currInterChunck.transform.position = new Vector3(0, 0, spawnPos);
             spawnPos += chunckLength;
         }
 
         arrayCounter = chunckScripts.Length-1;
         interChunckCouter = interChunckScript.Length - 1;
-
-        StartCoroutine(loop());
     }
 
-    IEnumerator loop ()
+    void OnDrawGizmos()
     {
-        while (true)
-        {
+
+        Gizmos.DrawCube(new Vector3(0, 0, 5), new Vector3(2, 2, 10));
+    }
+
+    void Update()
+    {
+        Collider[] ObjectsInSpawnPoint = Physics.OverlapBox(new Vector3(0, 0, 5), new Vector3(2, 2, 6.75f));
+
+        if (ObjectsInSpawnPoint.Length <= 0) {
+            if (SpawnInterChunck) {
+                SpawnInterchunck();
+            } else {
+                SpawnObstacleChunck();
+            }
+            SpawnInterChunck = !SpawnInterChunck;
+        }
+
+    }
+
+
+    /*
+    float startTime,
+            timeLeft;
+    float timeOffset;
+    bool countOffset;
+    
+    void FixedUpdate()
+    {
+
+        if (NonDestroyableData.GameSpeed != 1) {
+
+            countOffset = true;
+
+        } else countOffset = false;
+
+        if (timeLeft - startTime > spawnTime / NonDestroyableData.GameSpeed) {  
             SpawnAChunck();
-            yield return new WaitForSeconds(spawnTime / NonDestroyableData.GameSpeed);
+            timeLeft = startTime = Time.time;
+        } else {
+            timeLeft += Time.deltaTime;
+            //countOffset += 
         }
     }
-
+    */
     bool SpawnInterChunck = true;
     int arrayCounter;
     int interChunckCouter;
+    bool gameStarted = false;
 
     void SpawnAChunck()
     {
-
-        if (SpawnInterChunck) {
-
-            if (arrayCounter > 0) {
-                interChunckScript[interChunckCouter].Spawn(0, speed);
-                interChunckCouter--;
-            } else {
-                interChunckCouter = interChunckScript.Length-1;
-                interChunckScript[0].Spawn(0, speed);
-            }
-        } else {
-
-            if (arrayCounter > 0) {
-                chunckScripts[arrayCounter].Spawn(0, speed);
-                arrayCounter--;
-            } else {
-                arrayCounter = chunckScripts.Length - 1;
-                chunckScripts[0].Spawn(0, speed);
-            }
-
-        }
-        SpawnInterChunck = !SpawnInterChunck;
+        
             //spSpawnInterChunckawn logic
+    }
+
+    void SpawnInterchunck()
+    {
+        if (interChunckCouter > 0)
+        {
+            interChunckScript[interChunckCouter].Spawn(0, speed);
+            interChunckCouter--;
+        }
+        else
+        {
+            interChunckCouter = interChunckScript.Length - 1;
+            interChunckScript[0].Spawn(0, speed);
+        }
+    }
+
+    void SpawnObstacleChunck ()
+    {
+           if (arrayCounter > 0)
+           {
+               chunckScripts[arrayCounter].Spawn(0, speed);
+               arrayCounter--;
+               if (gameStarted)
+                   NonDestroyableData.currentChunck = chunckScripts[arrayCounter];
+           } else {
+               chunckScripts[0].Spawn(0, speed);
+               arrayCounter = chunckScripts.Length - 1;
+               NonDestroyableData.currentChunck = chunckScripts[chunckScripts.Length - 1];
+
+               gameStarted = true;
+           }
     }
 }

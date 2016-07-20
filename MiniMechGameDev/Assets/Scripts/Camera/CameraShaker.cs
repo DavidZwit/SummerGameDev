@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShakeYaBuddy : MonoBehaviour {
+public class CameraShaker : Singleton<CameraShaker>
+{
 
     // Transform of the camera to shake. Grabs the gameObject's transform
     // if null.

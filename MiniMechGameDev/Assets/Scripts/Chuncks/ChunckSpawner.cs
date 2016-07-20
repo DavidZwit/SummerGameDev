@@ -60,7 +60,7 @@ public class ChunckSpawner : MonoBehaviour {
 
     void SpawnAChunck()
     {
-        //NonDestroyableData.GameSpeed += 0.5f;
+
         if (SpawnInterChunck) {
 
             if (arrayCounter > 0) {

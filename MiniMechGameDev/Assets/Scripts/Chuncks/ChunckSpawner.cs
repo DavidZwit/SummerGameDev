@@ -11,6 +11,8 @@ public class ChunckSpawner : MonoBehaviour {
     GameObject interChunck;
     IChunck[] interChunckScript;
 
+    [SerializeField]
+    int amoundOfInterChuncks;
 
     [SerializeField]
     int spawnTime = 1;
@@ -29,7 +31,7 @@ public class ChunckSpawner : MonoBehaviour {
             chunckScripts[i].Spawn(-800, speed);
         }
 
-        interChunckScript = new IChunck[chuncks.Length];
+        interChunckScript = new IChunck[amoundOfInterChuncks];
         for (int i = interChunckScript.Length-1; i >= 0; i--) {
 
             GameObject currInterChunck = Instantiate(interChunck, new Vector3(), new Quaternion())as GameObject;

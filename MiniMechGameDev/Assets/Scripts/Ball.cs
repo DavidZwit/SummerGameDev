@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using System;
 using UnityEditor.VersionControl;
 
-public class Ball : MonoBehaviour {
+public class Ball : Singleton<Ball> {
 
 	bool shootBack = false;
 	float shootTime = 2;
@@ -14,9 +14,12 @@ public class Ball : MonoBehaviour {
 
 	private GameObject _target;
 	private bool ShouldIMove = true;
+    private ShakeYaBuddy Shake;
 
-	void Start() {
+	void Start()
+    {
 		StartCoroutine (ShootLoop());
+        Shake = GetComponent<ShakeYaBuddy>();
 	}
 
 	void Update()
@@ -44,5 +47,15 @@ public class Ball : MonoBehaviour {
 			yield return new WaitForSeconds(2f);
 		}
 	}
+
+    void OnTriggerEnter(Collider _col)
+    {
+        Debug.Log("hit");
+        if(_col.tag == "Obstacles")
+        {
+            Shake.shakeDuration = 0.4f;
+        }
+    }
+
 }
 

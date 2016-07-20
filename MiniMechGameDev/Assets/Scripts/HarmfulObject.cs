@@ -4,12 +4,14 @@ using System.Collections;
 public class HarmfulObject : MonoBehaviour {
 
     private Animator AnimObjec;
-
+    public GameObject Lights;
 
 	void Start ()
     {
-        AnimObjec = GetComponentInChildren<Animator>();
-
+        
+        AnimObjec = this.gameObject.GetComponent<Animator>();
+        if (Lights!=null)
+        Lights.SetActive(false);
     }
 	
 	
@@ -23,7 +25,19 @@ public class HarmfulObject : MonoBehaviour {
         {
             Debug.Log("animate me");
             
+            if (AnimObjec!=null)
             AnimObjec.SetTrigger("Active");
+
+            if (Lights != null)
+            {
+                Lights.SetActive(true);
+                Invoke("turn", 0.5f);
+            }
         }
+    }
+
+    void turn()
+    {
+        Lights.SetActive(false);
     }
 }

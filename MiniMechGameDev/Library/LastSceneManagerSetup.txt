@@ -1,8 +1,4 @@
 sceneSetups:
-<<<<<<< HEAD
-- path: Assets/Scene/RayInputScene.unity
-=======
 - path: Assets/Scene/Arena Preview.unity
->>>>>>> d74e809c91f6300c175c40fc8fc1cad83b440e87
   isLoaded: 1
   isActive: 1

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -21,6 +22,54 @@ public class Ball : Singleton<Ball>
         set { origin = value; }
     }
 
+    private bool shotBall;
+    public bool ShotBall
+    {
+        get
+        {
+            return shotBall;
+        }
+        set
+        {
+            if (value) UpdatedCheck = false;
+            shotBall = value;
+        }
+    }
+
+    private bool UpdatedCheck = false;
+    private bool UpdateScore
+    {
+        get
+        {
+            if(ReceivedBall && Target != Origin && !UpdatedCheck)
+            {
+                UpdatedCheck = true;
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    private bool ReceivedBall
+    {
+        get
+        {
+            if (DistanceToTarget <= ReceiveOffset)
+            {
+                if(Target.GetComponent<PlayerInfo>().Left)
+                    PlayerPassLineTool.Instance.CurrentPlayer = 1;
+                else
+                    PlayerPassLineTool.Instance.CurrentPlayer = -1;
+
+                ShotBall = false;
+                return true;
+            }
+
+            return false;
+        }
+    }
+
     private float DistanceToTarget
     {
         get { return Vector3.Distance(this.transform.position, target.position); }
@@ -33,7 +82,7 @@ public class Ball : Singleton<Ball>
 	void Start()
     {
         if (Target == null)
-            Target = GameObject.Find("P1_TEST").transform;
+            Target = PlayerPassLineTool.Instance.Players[0].transform;
 
         if (Origin == null)
             Origin = Target;
@@ -43,24 +92,40 @@ public class Ball : Singleton<Ball>
 
 	void Update()
 	{
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.D))
         {
-            PassBall(GameObject.Find("P1_TEST").transform, 1, GameObject.Find("P2_TEST").transform);
+            PassBall(PlayerPassLineTool.Instance.Players[0].transform, 5, PlayerPassLineTool.Instance.Players[1].transform);
         }
-        else if(Input.GetKeyDown(KeyCode.D))
+        else if(Input.GetKeyDown(KeyCode.A))
         {
-            PassBall(GameObject.Find("P2_TEST").transform, 1, GameObject.Find("P1_TEST").transform);
+            PassBall(PlayerPassLineTool.Instance.Players[1].transform, 5, PlayerPassLineTool.Instance.Players[0].transform);
         }
 
-
-        if (DistanceToTarget >= ReceiveOffset)
+        if (!ReceivedBall)
             transform.position = Vector3.Lerp(transform.position, Target.position, PassSpeed * Time.deltaTime);
-	}
+
+
+        if (!UpdateScore) return;
+
+        ScoreManager.Instance.Scores.AddToScore(ScoreManager.Instance.SmallScore);
+        Text[] AllText = FindObjectsOfType<Text>();
+        for (int i = 0; i < AllText.Length; i++)
+        {
+            if(AllText[i].transform.name.Contains("CurrentScore"))
+            {
+                AllText[i].text = "Score: " + ScoreManager.Instance.Scores.CurrScore.ToString();
+                break;
+            }
+        }
+
+
+        // Debug.Log("Current score : " + ScoreManager.Instance.Scores.CurrScore);
+    }
 
     public void PassBall(Transform t, float s, Transform o)
     {
+        ShotBall = true;
         // Debug.Log("Pass ball from : " + t.transform.position + ", to : " + o.transform.position);
-        Debug.Log("Target : " + t.name + ", Speed: " + s + ", Origin: " + o.name);
         Target = t;
         PassSpeed = s;
         Origin = o;
@@ -70,7 +135,7 @@ public class Ball : Singleton<Ball>
     {
         if(_col.tag == "Obstacles")
         {
-            Debug.Log("Hit an obstacle, attempting to go back to : " + Origin.transform.name);
+            // Debug.Log("Hit an obstacle, attempting to go back to : " + Origin.transform.name);
             PassBall(Origin, PassSpeed/1.5f, Origin);
             CameraShaker.Instance.shakeDuration = .4f;
         }

@@ -62,7 +62,7 @@ namespace GameStates
 			 * GetComponent solution of the combination
 			 * Set it into a variable.
 			 */
-			NonDestroyableData.GameSpeed = 0.2f;
+			NonDestroyableData.GameSpeed = 0.3f;
 
             startTime = Time.time;
             timeLeft = Time.time;

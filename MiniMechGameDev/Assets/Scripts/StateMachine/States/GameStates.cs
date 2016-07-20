@@ -9,22 +9,20 @@ namespace GameStates
 
         public void Enter(GameObject theObject)
         {
-
+			Debug.Log (" Idle Enter ");
         }
 
         public bool Reason()
         {
+			/*if(PlayerPos is in a Chunk)
+			{
+				returnState = StatesEnum.slomo;
+				return false;
+			}
 
-            /* if (i should still be in this state) {
-               return true 
-
-            } else {
-                returnState = StatesEnum.(The state you want to go to)
-                return false;
-            }
-            
-             */
-            return true;
+			*/
+			returnState = StatesEnum.slomo;
+			return true;
         }
 
         public void Act()
@@ -46,11 +44,32 @@ namespace GameStates
 
         public void Enter(GameObject theObject)
         {
+			Debug.Log (" Slomo Enter ");
 
+			/*
+			 * 
+			 * GetComponent solution of the combination
+			 * Set it into a variable.
+			 */
+			NonDestroyableData.GameSpeed = 0.2f;
         }
 
         public bool Reason()
         {
+			/*
+			 * if(Player Input is the same as the solution)
+			 * {
+			 * 		ReturnState = StatesEnum.Good;
+			 * 		return false;
+			 * }
+			 * 
+			 * if(2 seconds have past)
+			 * {
+			 * 		returnState = StatesEnum.Bad;
+			 * 		return false;
+			 * }
+			 */
+
             return true;
         }
 
@@ -61,6 +80,7 @@ namespace GameStates
 
         public StatesEnum Leave()
         {
+			NonDestroyableData.GameSpeed = 1f;
             return returnState;
         }
     }
@@ -73,7 +93,12 @@ namespace GameStates
 
         public void Enter(GameObject theObject)
         {
+			Debug.Log (" bad Enter ");
 
+			/* 
+			 * -1 point/backup
+			 * return false; ( back to idle );
+			*/
         }
 
         public bool Reason()
@@ -100,9 +125,12 @@ namespace GameStates
 
         public void Enter(GameObject theObject)
         {
-
+			Debug.Log (" Good Enter ");
+			/* 
+			 * +1 point/backup
+			 * return false; ( back to idle );
+			*/
         }
-
         public bool Reason()
         {
             return true;
@@ -112,7 +140,6 @@ namespace GameStates
         {
 
         }
-
         public StatesEnum Leave()
         {
             return returnState;

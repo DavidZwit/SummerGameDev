@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour, IMoveable {
 	public void ChangeMyZSmooth(float value, float multiplier)
 	{
 		_newPos.z = _startZ + (value * multiplier);
+
 		StartCoroutine (SmoothMove (0.01f));
 	}
 

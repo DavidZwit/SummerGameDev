@@ -17,7 +17,7 @@ public class GameStateHandeler : MonoBehaviour {
         gameStates.Start();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         gameStates.UpdateState();
     }

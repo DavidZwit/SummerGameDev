@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -70,28 +69,16 @@ public class Ball : Singleton<Ball>
         }
     }
 
-    private float DistanceToTarget
-    {
-        get { return Vector3.Distance(this.transform.position, target.position); }
-    }
+public class Ball : Singleton<Ball> {
 
-    [Range(0, 5)]
-    public float ReceiveOffset = 2;
 
 
 	void Start()
     {
-        if (Target == null)
-            Target = PlayerPassLineTool.Instance.Players[0].transform;
-
-        if (Origin == null)
-            Origin = Target;
-
-    }
-
 
 	void Update()
 	{
+<<<<<<< HEAD
         if(Input.GetKeyDown(KeyCode.A))
         {
             PassBall(PlayerPassLineTool.Instance.Players[0].transform, 5, PlayerPassLineTool.Instance.Players[1].transform);

@@ -8,13 +8,6 @@ public interface IRemember
 }
 public class PlayerInfo : MonoBehaviour, IRemember {
 	
-    public bool Left
-    {
-        get
-        {
-            return AmILeft;
-        }
-    }
 	[SerializeField] private bool AmILeft = false;
 
 	public void UpdateMyValue(float Value)

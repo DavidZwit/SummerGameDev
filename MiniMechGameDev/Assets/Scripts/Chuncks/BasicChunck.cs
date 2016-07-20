@@ -3,27 +3,23 @@ using System.Collections;
 
 
 public class BasicChunck : MonoBehaviour, IChunck { 
-    float moveSpeed = 0;
-    bool active = false;
+    [SerializeField]
+    float moveSpeed = 20;
 
     [System.Serializable]
     class bools { public bool[] canHit = new bool[4]; }
     [SerializeField]
     bools[] HitPosibilities = new bools[4];
 
-    IEnumerator move;
 
     void Start()
     {
-        move = Move();
-        //  Active = false;
-        //StartCoroutine(Move());
+        StartCoroutine(Move());
     }
 
     public bool Spawn(float zPos, float unitsPerSecond)
     {
         //if (!)
-        Active = true;
         transform.position = new Vector3(0, 0, zPos);
         moveSpeed = unitsPerSecond;
         return true;
@@ -33,7 +29,7 @@ public class BasicChunck : MonoBehaviour, IChunck {
 
     public IEnumerator Move()
     {
-        while (active)
+        while (true)
         {
             transform.Translate(0, 0, (-moveSpeed * NonDestroyableData.GameSpeed) / 100);
             yield return returnSeconds;
@@ -41,26 +37,9 @@ public class BasicChunck : MonoBehaviour, IChunck {
 
     }
 
-    public void Delete()
-    {
-        Active = false;
-    }
-
     public void ChangeSpeed(float newSpeed)
     {
         moveSpeed = newSpeed;
-    }
-
-    bool Active
-    {
-        get {
-            return active; }
-        set {
-            bool oldActive = active;
-            active = value;
-            transform.position = new Vector3(0, 0, transform.position.z);
-            if (value && !oldActive) StartCoroutine(Move());
-        }
     }
 
     public bool CanHit(int left, int right)

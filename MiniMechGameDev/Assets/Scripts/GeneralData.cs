@@ -4,6 +4,7 @@ using System;
 public struct NonDestroyableData
 {
     public static float GameSpeed = 1;
+    public static IChunck currentChunck;
 	public static float playerOneValue = 0f;
 	public static float playerTwoValue = 0f;
 

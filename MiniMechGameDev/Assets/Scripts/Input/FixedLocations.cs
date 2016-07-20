@@ -11,6 +11,7 @@ public class FixedLocations : MonoBehaviour {
 	public void Pressed()
 	{
 		ChangeZ<IMoveable> (_player, x => x.ChangeMyZSmooth (_location, _multiplier));
+		ChangeZ<IRemember>(_player, x => x.UpdateMyValue(_location));
 	}
 
 	void ChangeZ<T>(GameObject target, Action<T> move)

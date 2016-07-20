@@ -15,21 +15,28 @@ public class PlayerPassLineTool : MonoBehaviour
     private List<GameObject> players = new List<GameObject>();
     public LayerMask rayHit;
 
+    public int CurrentPlayer
+    {
+        get { return currentPlayer; }
+        set { currentPlayer = value; }
+    }
+    private int currentPlayer = -1;
+
     private LineRenderer line;
 
+    public Vector2 offset = new Vector2(0,0);
+
+    #if UNITY_EDITOR
     public void OnDrawGizmos()
     {
         if (enabled)
-        {
             CheckCollision();
-        }
     }
+    #endif
 
     private void GetPlayers()
     {
         if (players.Count >= 2) return;
-
-        Debug.Log(players.Count);
         for (int i = 0; i < playerCount; i++)
         {
             players.Add( transform.GetChild(i).transform.gameObject );
@@ -42,10 +49,18 @@ public class PlayerPassLineTool : MonoBehaviour
         if (line == null) line = this.transform.GetComponent<LineRenderer>();
 
         line.enabled = true;
-        line.SetWidth(.075f, .075f);
+        line.SetWidth(1f, 1f);
 
         line.SetPosition(0, players[0].transform.position);
         line.SetPosition(1, players[1].transform.position);
+
+        if (offset.x <= 1 && offset.x >= -1)
+            offset.x += .075f;
+        else
+            offset.x = 0;
+
+        this.transform.GetComponent<Renderer>().material.mainTextureScale = new Vector2(3 * currentPlayer, 1);
+        this.transform.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", offset);
     }
 
     void Update()
@@ -60,15 +75,17 @@ public class PlayerPassLineTool : MonoBehaviour
         if( Physics.Raycast(players[0].transform.position, direction, out hit) )
         {
             if(hit.collider.transform.gameObject.tag.Contains("Obstacle"))
-            {
-                Gizmos.color = Color.red;
-                float radius = .75f;
-                Vector3 pos = hit.transform.position + new Vector3(0, radius/2);
-                Gizmos.DrawSphere(pos, radius);
-            }
+                SetBeamColor(Color.red);
+
+            return;
         }
 
-        // Debug.DrawRay(players[0].transform.position, direction);
+        SetBeamColor(Color.green);
+    }
+
+    void SetBeamColor(Color c)
+    {
+        this.transform.GetComponent<Renderer>().material.color = c;
     }
 
 }

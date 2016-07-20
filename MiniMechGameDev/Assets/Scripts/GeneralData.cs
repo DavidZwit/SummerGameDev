@@ -3,6 +3,8 @@ using System;
 
 public struct NonDestroyableData
 {
+    public static float GameSpeed = 1;
+
     public static List<Account> players = new List<Account>();
     public static Account currPlayer;
     

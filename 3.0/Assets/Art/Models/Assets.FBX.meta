@@ -1,0 +1,139 @@
+fileFormatVersion: 2
+guid: ae591e2c010332b4295d6ad51b1afac3
+timeCreated: 1468918481
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Add
+    100002: //RootNode
+    100004: blockers
+    100006: Coachseating
+    100008: Darkgreenplane
+    100010: dummy_placeholder
+    100012: flag
+    100014: Goal
+    100016: greenplane
+    100018: Mainwalls
+    100020: Plane029
+    100022: Seating
+    100024: Sidepiece
+    100026: Sunblockers
+    400000: Add
+    400002: //RootNode
+    400004: blockers
+    400006: Coachseating
+    400008: Darkgreenplane
+    400010: dummy_placeholder
+    400012: flag
+    400014: Goal
+    400016: greenplane
+    400018: Mainwalls
+    400020: Plane029
+    400022: Seating
+    400024: Sidepiece
+    400026: Sunblockers
+    2300000: Add
+    2300002: blockers
+    2300004: Coachseating
+    2300006: Darkgreenplane
+    2300008: dummy_placeholder
+    2300010: flag
+    2300012: Goal
+    2300014: greenplane
+    2300016: Mainwalls
+    2300018: Plane029
+    2300020: Seating
+    2300022: Sidepiece
+    2300024: Sunblockers
+    3300000: Add
+    3300002: blockers
+    3300004: Coachseating
+    3300006: Darkgreenplane
+    3300008: dummy_placeholder
+    3300010: flag
+    3300012: Goal
+    3300014: greenplane
+    3300016: Mainwalls
+    3300018: Plane029
+    3300020: Seating
+    3300022: Sidepiece
+    3300024: Sunblockers
+    4300000: Sidepiece
+    4300002: Mainwalls
+    4300004: Seating
+    4300006: Add
+    4300008: Sunblockers
+    4300010: Coachseating
+    4300012: flag
+    4300014: Goal
+    4300016: blockers
+    4300018: Darkgreenplane
+    4300020: greenplane
+    4300022: dummy_placeholder
+    4300024: Plane029
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.5
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

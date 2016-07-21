@@ -64,7 +64,7 @@ namespace GameStates
 			 * GetComponent solution of the combination
 			 * Set it into a variable.
 			 */
-			NonDestroyableData.GameSpeed = 0.3f;
+			NonDestroyableData.GameSpeed = 0.2f;
 
             startTime = Time.time;
             timeLeft = Time.time;
@@ -91,7 +91,15 @@ namespace GameStates
 			 * }
 			 */
 
-            return !shouldReturn;
+            if (Ball.Instance.UpdateScore) {
+                returnState = StatesEnum.good;
+                return false;
+            } else if (shouldReturn) {
+                returnState = StatesEnum.bad;
+                return false;
+            }
+
+            return true;
         }
 
         public void Act()
@@ -124,15 +132,18 @@ namespace GameStates
         {
 			Debug.Log (" bad Enter ");
 
-			/* 
+            /* 
 			 * -1 point/backup
 			 * return false; ( back to idle );
 			*/
+
         }
 
         public bool Reason()
         {
-            return true;
+
+            returnState = StatesEnum.idle;
+            return false;
         }
 
         public void Act()
@@ -162,7 +173,8 @@ namespace GameStates
         }
         public bool Reason()
         {
-            return true;
+            returnState = StatesEnum.idle;
+            return false;
         }
 
         public void Act()

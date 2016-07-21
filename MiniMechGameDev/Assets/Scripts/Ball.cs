@@ -38,7 +38,7 @@ public class Ball : Singleton<Ball>
     }
 
     private bool UpdatedCheck = false;
-    private bool UpdateScore
+    public bool UpdateScore
     {
         get
         {

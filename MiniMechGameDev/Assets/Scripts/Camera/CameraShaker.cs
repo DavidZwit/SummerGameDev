@@ -27,21 +27,23 @@ public class CameraShaker : Singleton<CameraShaker>
 
     void OnEnable()
     {
-        originalPos = camTransform.localPosition;
+        originalPos = camTransform.position;
     }
 
     void Update()
     {
+        originalPos = camTransform.position;
+
         if (shakeDuration > 0)
         {
-            camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
+            camTransform.position = originalPos + Random.insideUnitSphere * shakeAmount;
 
             shakeDuration -= Time.deltaTime * decreaseFactor;
         }
         else
         {
             shakeDuration = 0f;
-            camTransform.localPosition = originalPos;
+            // camTransform.localPosition = originalPos;
         }
     }
 }

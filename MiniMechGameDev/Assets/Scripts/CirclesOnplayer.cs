@@ -6,6 +6,7 @@ public class CirclesOnplayer : MonoBehaviour
 
     // Use this for initialization
     private Animator AnimObjec;
+    public AudioSource ShootSound;
 
     void Start()
     {
@@ -35,7 +36,10 @@ public class CirclesOnplayer : MonoBehaviour
         {
             if (AnimObjec != null)
                 AnimObjec.SetBool("HasBall", false);
-
+            if (ShootSound != null)
+            {
+                ShootSound.Play();
+            }
         }
     }
 }

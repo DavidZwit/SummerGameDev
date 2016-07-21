@@ -45,6 +45,16 @@ public class Ball : Singleton<Ball>
             if (ReceivedBall && Target != Origin && !UpdatedCheck)
             {
                 UpdatedCheck = true;
+
+                if(Target == PlayerPassLineTool.Instance.players[0].transform)
+                {
+                    GameObject.Find("Right_View").transform.AnimateCameraToMe(3);
+                }
+                else
+                {
+                    GameObject.Find("Left_View").transform.AnimateCameraToMe(3);
+                }
+
                 return true;
             }
 
@@ -95,10 +105,13 @@ public class Ball : Singleton<Ball>
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
+            //Target.AnimateCameraToMe(2);
             PassBall(PlayerPassLineTool.Instance.Players[0].transform, 5, PlayerPassLineTool.Instance.Players[1].transform);
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
+            // Origin.AnimateCameraToMe(2);
+            // GameObject.Find("Right_View").transform.AnimateCameraToMe(1);
             PassBall(PlayerPassLineTool.Instance.Players[1].transform, 5, PlayerPassLineTool.Instance.Players[0].transform);
         }
 
@@ -162,19 +175,20 @@ public class Ball : Singleton<Ball>
 	{
 		if (Origin == Target) {
 			_passTo1 = _passTo1;
-			Debug.Log (" _ origin wasnt the target" + Origin + Target);
+            // Debug.Log (" _ origin wasnt the target" + Origin + Target);
 		} else {
 			_passTo1 = !_passTo1;
-			Debug.Log (" origing was the target, i think" + Origin + Target);
+			// Debug.Log (" origing was the target, i think" + Origin + Target);
 		}
 		if (_passTo1) {
 			PassBall (PlayerPassLineTool.Instance.Players [0].transform, 10, PlayerPassLineTool.Instance.Players [1].transform);
+            // GameObject.Find("Right_View").transform.AnimateCameraToMe(3);
+        }
+        else {
+			PassBall (PlayerPassLineTool.Instance.Players [1].transform, 10, PlayerPassLineTool.Instance.Players [0].transform);
+            // GameObject.Find("Left_View").transform.AnimateCameraToMe(3);
+        }
 
-		} else {
-			PassBall (PlayerPassLineTool.Instance.Players [1].transform, 10, PlayerPassLineTool.Instance.Players [0].transform);	
-		}
-	
-
-	}
+    }
 }
 

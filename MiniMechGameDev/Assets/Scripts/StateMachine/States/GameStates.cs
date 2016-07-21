@@ -127,7 +127,7 @@ namespace GameStates
 
         public void Enter(GameObject theObject)
         {
-
+			ScoreManager.Instance.Scores.AddToFails (1);
             /* 
 			 * -1 point/backup
 			 * return false; ( back to idle );
@@ -137,8 +137,10 @@ namespace GameStates
 
         public bool Reason()
         {
-
-            returnState = StatesEnum.idle;
+			if (ScoreManager.Instance.Scores.CurrFails == 3) {
+				Debug.Log ("I die");
+			} else 
+				returnState = StatesEnum.idle;
             return false;
         }
 

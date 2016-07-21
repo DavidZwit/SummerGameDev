@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class Ball : Singleton<Ball>
 {
+    public bool isLeftPlayer = false;
+
 	private bool _passTo1 = false;
 	private bool _didHitObj = false;
     [Range(0, 5)]
@@ -37,6 +39,7 @@ public class Ball : Singleton<Ball>
         }
     }
 
+
     private bool UpdatedCheck = false;
     public bool UpdateScore
     {
@@ -46,13 +49,13 @@ public class Ball : Singleton<Ball>
             {
                 UpdatedCheck = true;
 
-                if(Target == PlayerPassLineTool.Instance.players[0].transform)
+                if (Target == PlayerPassLineTool.Instance.players[0].transform)
                 {
-                    GameObject.Find("Right_View").transform.AnimateCameraToMe(3);
+                    isLeftPlayer = true;
                 }
-                else
+                else  
                 {
-                    GameObject.Find("Left_View").transform.AnimateCameraToMe(3);
+                    isLeftPlayer = false;
                 }
 
                 return true;

@@ -2,14 +2,30 @@
 
 namespace GameStates
 {
+
     public class Idle : State
     {
         GameObject obj;
         StatesEnum returnState;
 
+        GameObject LeftVieuw, RightVieuw;
+
+        public Idle(GameObject _LeftVieuw, GameObject _RightVieuw)
+        {
+            LeftVieuw = _LeftVieuw;
+            RightVieuw = _RightVieuw;
+        }
+
         public void Enter(GameObject theObject)
         {
             NonDestroyableData.GameSpeed = 1;
+
+            Debug.Log(Ball.Instance.isLeftPlayer);
+            if (Ball.Instance.isLeftPlayer)
+            {
+                LeftVieuw.transform.AnimateCameraToMe(2);
+            }
+            else RightVieuw.transform.AnimateCameraToMe(2);
         }
 
         public bool Reason()
@@ -52,7 +68,17 @@ namespace GameStates
         float startTime;
         float timeLeft;
 
-		Ball _ball;
+        GameObject topVieuw;
+
+
+        
+
+        public Slomo(GameObject _topVieuw)
+        {
+            topVieuw = _topVieuw;
+        }
+
+        Ball _ball;
         public void Enter(GameObject theObject)
         {
 			
@@ -66,6 +92,9 @@ namespace GameStates
             startTime = Time.time;
             timeLeft = Time.time;
             shouldReturn = false;
+
+
+            topVieuw.transform.AnimateCameraToMe(3);
 
             returnState = StatesEnum.idle;
 

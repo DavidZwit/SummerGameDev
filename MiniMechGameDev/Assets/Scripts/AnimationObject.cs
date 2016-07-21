@@ -25,7 +25,7 @@ public class AnimationObject : MonoBehaviour {
     {
         if(_Col.tag == "Player")
         {
-            Debug.Log("animate me");
+            //Debug.Log("animate me");
             
             
             if (partis != null)

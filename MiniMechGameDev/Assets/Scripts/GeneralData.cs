@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public struct NonDestroyableData
 {
@@ -8,12 +9,19 @@ public struct NonDestroyableData
 	public static float playerOneValue = 0f;
 	public static float playerTwoValue = 0f;
 
-    public static List<Account> players = new List<Account>();
+    public static Dictionary<string, Account> players = new Dictionary<string, Account>();
     public static Account currPlayer;
     
     void SortPlayers()
     {
-           
+        List<string> keyList = players.Keys.ToList();
+        Dictionary<string, Account> sortedDictionary = new Dictionary<string, Account>();
+        foreach (string key in keyList) {
+            sortedDictionary.Add(key, players[key]);
+        }
+
+        players = sortedDictionary;
+
     }
 }
 

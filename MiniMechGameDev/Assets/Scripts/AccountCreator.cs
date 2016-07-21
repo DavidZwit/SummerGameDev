@@ -14,7 +14,7 @@ public class AccountCreator : MonoBehaviour {
     void OnDestroy ()
     {
         Account newAccound = new Account(0, name);
-        NonDestroyableData.players.Add(newAccound);
+        NonDestroyableData.players.Add("random", newAccound);
         NonDestroyableData.currPlayer = newAccound;
     }
 }

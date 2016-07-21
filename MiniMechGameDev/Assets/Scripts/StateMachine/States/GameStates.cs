@@ -20,7 +20,7 @@ namespace GameStates
         {
             NonDestroyableData.GameSpeed = 1;
 
-            Debug.Log(Ball.Instance.isLeftPlayer);
+
             if (Ball.Instance.isLeftPlayer)
             {
                 LeftVieuw.transform.AnimateCameraToMe(2);
@@ -130,7 +130,7 @@ namespace GameStates
 
         public void Act()
         {
-            if (timeLeft - startTime  >= 2) {
+            if (timeLeft - startTime  >= 3) {
                 Exit();
             } else timeLeft += Time.deltaTime;
         }

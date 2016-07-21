@@ -25,7 +25,7 @@ public class BasicChunck : MonoBehaviour, IChunck {
         return true;
     }
 
-    WaitForSeconds returnSeconds = new WaitForSeconds(0.01f);
+    WaitForFixedUpdate returnSeconds = new WaitForFixedUpdate();
 
     public IEnumerator Move()
     {

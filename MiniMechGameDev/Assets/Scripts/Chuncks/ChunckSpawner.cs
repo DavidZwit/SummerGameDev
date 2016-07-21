@@ -4,13 +4,13 @@ using System.Collections;
 public class ChunckSpawner : MonoBehaviour {
 
     [SerializeField]
-    GameObject[] chuncks;
-    IChunck[] chunckScripts;
+    GameObject[] chunks;
+    IChunck[] chunkScripts;
     public LayerMask chunkMask;
 
     [SerializeField]
     GameObject interChunck;
-    IChunck[] interChunckScript;
+    IChunck[] interChunkScript;
 
     [SerializeField]
     int amoundOfInterChuncks = 10;
@@ -39,31 +39,33 @@ public class ChunckSpawner : MonoBehaviour {
 
     void Start()
     {
-        chunckScripts = new IChunck[chuncks.Length];
+        chunkScripts = new IChunck[chunks.Length];
 
-        float spawnPos = -chunckLength * amoundOfInterChuncks;
-        for (var i =0; i < chuncks.Length; i++) {
-            GameObject chunck = Instantiate(chuncks[i], new Vector3(), new Quaternion()) as GameObject;
-            chunck.transform.parent = ChunkHolder.transform;
-            chunckScripts[i] = chunck.GetComponent<IChunck>();
-            chunckScripts[i].Spawn(-800, speed);
+        float spawnPos = -chunckLength * amoundOfInterChuncks + 1;
+        for (var i =0; i < chunks.Length; i++) {
+            GameObject chunk = Instantiate(chunks[i], new Vector3(), new Quaternion()) as GameObject;
+            chunk.transform.name = "Chunk_" + (i+1);
+            chunk.transform.parent = ChunkHolder.transform;
+            chunkScripts[i] = chunk.GetComponent<IChunck>();
+            chunkScripts[i].Spawn(-800, speed);
         }
 
-        interChunckScript = new IChunck[amoundOfInterChuncks];
-        for (int i = interChunckScript.Length-1; i >= 0; i--) {
+        interChunkScript = new IChunck[amoundOfInterChuncks];
+        for (int i = interChunkScript.Length-1; i >= 0; i--) {
 
             GameObject currInterChunck = Instantiate(interChunck, new Vector3(), new Quaternion())as GameObject;
+            currInterChunck.transform.name = "Chunk_" + (i+1);
             currInterChunck.transform.parent = ChunkHolder.transform;
-            interChunckScript[i] = currInterChunck.GetComponent<IChunck>();
+            interChunkScript[i] = currInterChunck.GetComponent<IChunck>();
 
-            if (i != interChunckScript.Length -1) interChunckScript[i].Spawn(spawnPos, speed);
+            if (i != interChunkScript.Length -1) interChunkScript[i].Spawn(spawnPos, speed);
 
             currInterChunck.transform.position = new Vector3(0, 0, spawnPos);
             spawnPos += chunckLength;
         }
 
-        arrayCounter = chunckScripts.Length-1;
-        interChunckCouter = interChunckScript.Length - 1;
+        arrayCounter = chunkScripts.Length-1;
+        interChunckCouter = interChunkScript.Length - 1;
     }
 
     void OnDrawGizmos()
@@ -127,13 +129,13 @@ public class ChunckSpawner : MonoBehaviour {
     {
         if (interChunckCouter > 0)
         {
-            interChunckScript[interChunckCouter].Spawn(0, speed);
+            interChunkScript[interChunckCouter].Spawn(0, speed);
             interChunckCouter--;
         }
         else
         {
-            interChunckCouter = interChunckScript.Length - 1;
-            interChunckScript[0].Spawn(0, speed);
+            interChunckCouter = interChunkScript.Length - 1;
+            interChunkScript[0].Spawn(0, speed);
         }
     }
 
@@ -141,14 +143,14 @@ public class ChunckSpawner : MonoBehaviour {
     {
            if (arrayCounter > 0)
            {
-               chunckScripts[arrayCounter].Spawn(0, speed);
+               chunkScripts[arrayCounter].Spawn(0, speed);
                arrayCounter--;
                if (gameStarted)
-                   NonDestroyableData.currentChunck = chunckScripts[arrayCounter];
+                   NonDestroyableData.currentChunck = chunkScripts[arrayCounter];
            } else {
-               chunckScripts[0].Spawn(0, speed);
-               arrayCounter = chunckScripts.Length - 1;
-               NonDestroyableData.currentChunck = chunckScripts[chunckScripts.Length - 1];
+               chunkScripts[0].Spawn(0, speed);
+               arrayCounter = chunkScripts.Length - 1;
+               NonDestroyableData.currentChunck = chunkScripts[chunkScripts.Length - 1];
 
                gameStarted = true;
            }

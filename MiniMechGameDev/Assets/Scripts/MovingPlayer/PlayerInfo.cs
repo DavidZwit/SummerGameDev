@@ -6,8 +6,10 @@ public interface IRemember
 {
 	void UpdateMyValue (float Value);
 }
-public class PlayerInfo : MonoBehaviour, IRemember {
+
+public class PlayerInfo : Singleton<PlayerInfo>, IRemember {
 	
+	[SerializeField] private bool AmILeft = false;
     public bool Left
     {
         get
@@ -15,7 +17,6 @@ public class PlayerInfo : MonoBehaviour, IRemember {
             return AmILeft;
         }
     }
-	[SerializeField] private bool AmILeft = false;
 
 	public void UpdateMyValue(float Value)
 	{

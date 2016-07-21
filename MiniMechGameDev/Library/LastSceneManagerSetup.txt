@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scene/Arena Preview.unity
+- path: Assets/Scene/RayInputScene.unity
   isLoaded: 1
   isActive: 1

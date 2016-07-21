@@ -12,6 +12,7 @@ public class PlayerPassLineTool : Singleton<PlayerPassLineTool>
 {
     public bool enabled = true;
     private int playerCount = 2;
+    public LayerMask targets;
     
     public List<GameObject> Players
     {
@@ -20,8 +21,7 @@ public class PlayerPassLineTool : Singleton<PlayerPassLineTool>
             return players;
         }
     }
-    private List<GameObject> players = new List<GameObject>();
-    public LayerMask rayHit;
+    public List<GameObject> players = new List<GameObject>();
 
     public int CurrentPlayer
     {
@@ -69,6 +69,7 @@ public class PlayerPassLineTool : Singleton<PlayerPassLineTool>
     private void DisplayBeam()
     {
         GetPlayers();
+        CheckCollision();
         if (line == null) line = this.transform.GetComponent<LineRenderer>();
 
         line.enabled = true;
@@ -95,12 +96,14 @@ public class PlayerPassLineTool : Singleton<PlayerPassLineTool>
     {
         RaycastHit hit;
         Vector3 direction = (players[1].transform.position - players[0].transform.position);
-        if( Physics.Raycast(players[0].transform.position, direction, out hit) )
+        if( Physics.Raycast(players[0].transform.position, direction, out hit, targets) )
         {
-            if(hit.collider.transform.gameObject.tag.Contains("Obstacle"))
+            if (hit.collider.transform.gameObject.tag.Contains("Obstacle"))
+            {
                 SetBeamColor(Color.red);
+                return;
+            }
 
-            return;
         }
 
         SetBeamColor(Color.green);
@@ -108,6 +111,7 @@ public class PlayerPassLineTool : Singleton<PlayerPassLineTool>
 
     void SetBeamColor(Color c)
     {
+        // Debug.Log("Set a color: " + c);
         this.transform.GetComponent<Renderer>().material.color = c;
     }
 

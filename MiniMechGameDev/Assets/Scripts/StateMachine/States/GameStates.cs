@@ -10,6 +10,7 @@ namespace GameStates
         public void Enter(GameObject theObject)
         {
 			Debug.Log (" Idle Enter ");
+            NonDestroyableData.GameSpeed = 1;
         }
 
         public bool Reason()
@@ -21,7 +22,13 @@ namespace GameStates
 			}
 
 			*/
-			returnState = StatesEnum.slomo;
+
+            if (NonDestroyableData.currentChunck != null)
+            {
+			    returnState = StatesEnum.slomo;
+                return false;
+            }
+
 			return true;
         }
 
@@ -42,8 +49,14 @@ namespace GameStates
         GameObject obj;
         StatesEnum returnState;
 
+        bool shouldReturn = false;
+        float startTime;
+        float timeLeft;
+
+		Ball _ball;
         public void Enter(GameObject theObject)
         {
+			
 			Debug.Log (" Slomo Enter ");
 
 			/*
@@ -52,6 +65,14 @@ namespace GameStates
 			 * Set it into a variable.
 			 */
 			NonDestroyableData.GameSpeed = 0.2f;
+
+            startTime = Time.time;
+            timeLeft = Time.time;
+            shouldReturn = false;
+
+            returnState = StatesEnum.idle;
+
+            NonDestroyableData.currentChunck = null;
         }
 
         public bool Reason()
@@ -70,18 +91,34 @@ namespace GameStates
 			 * }
 			 */
 
+            if (Ball.Instance.UpdateScore) {
+                returnState = StatesEnum.good;
+                return false;
+            } else if (shouldReturn) {
+                returnState = StatesEnum.bad;
+                return false;
+            }
+
             return true;
         }
 
         public void Act()
         {
-
+            if (timeLeft - startTime  >= 2) {
+                Exit();
+            } else timeLeft += Time.deltaTime;
         }
 
         public StatesEnum Leave()
         {
+			Ball.Instance.ShootTheBallFromState ();
 			NonDestroyableData.GameSpeed = 1f;
             return returnState;
+        }
+
+        void Exit ()
+        {
+            shouldReturn = true;
         }
     }
 
@@ -95,15 +132,18 @@ namespace GameStates
         {
 			Debug.Log (" bad Enter ");
 
-			/* 
+            /* 
 			 * -1 point/backup
 			 * return false; ( back to idle );
 			*/
+
         }
 
         public bool Reason()
         {
-            return true;
+
+            returnState = StatesEnum.idle;
+            return false;
         }
 
         public void Act()
@@ -133,7 +173,8 @@ namespace GameStates
         }
         public bool Reason()
         {
-            return true;
+            returnState = StatesEnum.idle;
+            return false;
         }
 
         public void Act()

@@ -10,4 +10,9 @@ public class ScoreManager : Singleton<ScoreManager>
 
     public Score Scores;
 
+    void Start()
+    {
+        int i = ScoreManager.Instance.Scores.CurrScore;
+    }
+
 }

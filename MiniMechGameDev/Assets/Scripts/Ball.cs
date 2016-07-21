@@ -72,10 +72,15 @@ public class Ball : Singleton<Ball>
             if (DistanceToTarget <= ReceiveOffset)
             {
                 if (Target.GetComponent<PlayerInfo>().Left)
+                {
                     PlayerPassLineTool.Instance.CurrentPlayer = 1;
+                }
                 else
+                {
                     PlayerPassLineTool.Instance.CurrentPlayer = -1;
+                }
 
+                this.transform.parent = Target;
                 ShotBall = false;
                 return true;
             }
@@ -157,6 +162,8 @@ public class Ball : Singleton<Ball>
 
     public void PassBall(Transform t, float s, Transform o)
     {
+        Debug.Log("Pass Ball!");
+        this.transform.parent = null;
         ShotBall = true;
         // Debug.Log("Pass ball from : " + t.transform.position + ", to : " + o.transform.position);
         Target = t;
@@ -168,7 +175,9 @@ public class Ball : Singleton<Ball>
     {
         if (_col.tag == "Obstacles")
         {
-            // Debug.Log("Hit an obstacle, attempting to go back to : " + Origin.transform.name);
+            // Debug.Log("Hit an obstacle, attempting to go back to : " + Origin.transform.name
+            this.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            _col.transform.FindChild("sheet").GetComponent<ParticleSystem>().Play();
             PassBall(Origin, PassSpeed / 1.5f, Origin);
             CameraShaker.Instance.shakeDuration = .4f;
 			_didHitObj = true;

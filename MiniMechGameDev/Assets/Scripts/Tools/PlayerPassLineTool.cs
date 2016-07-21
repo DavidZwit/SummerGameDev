@@ -33,7 +33,7 @@ public class PlayerPassLineTool : Singleton<PlayerPassLineTool>
     private LineRenderer line;
 
     public Vector2 offset = new Vector2(0,0);
-
+    /*
     #if UNITY_EDITOR
     public void OnDrawGizmos()
     {
@@ -41,7 +41,7 @@ public class PlayerPassLineTool : Singleton<PlayerPassLineTool>
             CheckCollision();
     }
     #endif
-
+    */
     void Awake()
     {
         GetPlayers();
@@ -89,7 +89,8 @@ public class PlayerPassLineTool : Singleton<PlayerPassLineTool>
 
     void Update()
     {
-        DisplayBeam();
+        if(enabled)
+            DisplayBeam();
     }
 
     private void CheckCollision()

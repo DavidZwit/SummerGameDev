@@ -22,10 +22,10 @@ public class PlayerInfo : Singleton<PlayerInfo>, IRemember {
 	{
 		if (AmILeft) {
 			NonDestroyableData.playerOneValue = Value;
-			Debug.Log ("I changed #1 " +NonDestroyableData.playerOneValue);
+
 		} else {
 			NonDestroyableData.playerTwoValue = Value;
-			Debug.Log ("I changed #2 " + NonDestroyableData.playerTwoValue);
+
 
 		}
 	}

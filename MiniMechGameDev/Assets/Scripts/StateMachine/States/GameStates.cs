@@ -9,7 +9,6 @@ namespace GameStates
 
         public void Enter(GameObject theObject)
         {
-			Debug.Log (" Idle Enter ");
             NonDestroyableData.GameSpeed = 1;
         }
 
@@ -57,8 +56,6 @@ namespace GameStates
         public void Enter(GameObject theObject)
         {
 			
-			Debug.Log (" Slomo Enter ");
-
 			/*
 			 * 
 			 * GetComponent solution of the combination
@@ -130,7 +127,6 @@ namespace GameStates
 
         public void Enter(GameObject theObject)
         {
-			Debug.Log (" bad Enter ");
 
             /* 
 			 * -1 point/backup
@@ -165,8 +161,7 @@ namespace GameStates
 
         public void Enter(GameObject theObject)
         {
-			Debug.Log (" Good Enter ");
-			/* 
+			/*
 			 * +1 point/backup
 			 * return false; ( back to idle );
 			*/

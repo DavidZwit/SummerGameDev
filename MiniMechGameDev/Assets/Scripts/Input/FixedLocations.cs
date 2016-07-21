@@ -20,7 +20,7 @@ public class FixedLocations : MonoBehaviour {
 		foreach (T component in components) 
 		{
 			move (component);
-			Debug.Log ("clicked");
+
 		}
 	}
 }

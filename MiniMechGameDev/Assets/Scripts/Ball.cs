@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class Ball : Singleton<Ball>
 {
 	private bool _passTo1 = false;
-
+	private bool _didHitObj = false;
     [Range(0, 5)]
     public float PassSpeed = 2;
     private Transform target;
@@ -155,16 +155,26 @@ public class Ball : Singleton<Ball>
             // Debug.Log("Hit an obstacle, attempting to go back to : " + Origin.transform.name);
             PassBall(Origin, PassSpeed / 1.5f, Origin);
             CameraShaker.Instance.shakeDuration = .4f;
+			_didHitObj = true;
         }
     }
 	public void ShootTheBallFromState()
 	{
-		if (_passTo1) {
-			PassBall(PlayerPassLineTool.Instance.Players[0].transform, 10, PlayerPassLineTool.Instance.Players[1].transform);
+		if (Origin == Target) {
+			_passTo1 = _passTo1;
+			Debug.Log (" _ origin wasnt the target" + Origin + Target);
 		} else {
-			PassBall(PlayerPassLineTool.Instance.Players[1].transform, 10, PlayerPassLineTool.Instance.Players[0].transform);
+			_passTo1 = !_passTo1;
+			Debug.Log (" origing was the target, i think" + Origin + Target);
 		}
-		_passTo1 = !_passTo1;
+		if (_passTo1) {
+			PassBall (PlayerPassLineTool.Instance.Players [0].transform, 10, PlayerPassLineTool.Instance.Players [1].transform);
+
+		} else {
+			PassBall (PlayerPassLineTool.Instance.Players [1].transform, 10, PlayerPassLineTool.Instance.Players [0].transform);	
+		}
+	
+
 	}
 }
 

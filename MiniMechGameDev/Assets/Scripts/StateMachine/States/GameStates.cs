@@ -53,8 +53,10 @@ namespace GameStates
         float startTime;
         float timeLeft;
 
+		Ball _ball;
         public void Enter(GameObject theObject)
         {
+			
 			Debug.Log (" Slomo Enter ");
 
 			/*
@@ -101,6 +103,7 @@ namespace GameStates
 
         public StatesEnum Leave()
         {
+			Ball.Instance.ShootTheBallFromState ();
 			NonDestroyableData.GameSpeed = 1f;
             return returnState;
         }

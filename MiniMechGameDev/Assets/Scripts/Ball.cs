@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class Ball : Singleton<Ball>
 {
+	private bool _passTo1 = false;
 
     [Range(0, 5)]
     public float PassSpeed = 2;
@@ -84,8 +85,8 @@ public class Ball : Singleton<Ball>
         if (Target == null)
             Target = PlayerPassLineTool.Instance.Players[0].transform;
 
-        if (Origin == null)
-            Origin = Target;
+		if (Origin == null)
+			Origin = Target;
 
     }
 
@@ -156,6 +157,14 @@ public class Ball : Singleton<Ball>
             CameraShaker.Instance.shakeDuration = .4f;
         }
     }
-
+	public void ShootTheBallFromState()
+	{
+		if (_passTo1) {
+			PassBall(PlayerPassLineTool.Instance.Players[0].transform, 10, PlayerPassLineTool.Instance.Players[1].transform);
+		} else {
+			PassBall(PlayerPassLineTool.Instance.Players[1].transform, 10, PlayerPassLineTool.Instance.Players[0].transform);
+		}
+		_passTo1 = !_passTo1;
+	}
 }
 

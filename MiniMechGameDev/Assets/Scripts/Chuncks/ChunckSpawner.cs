@@ -21,6 +21,22 @@ public class ChunckSpawner : MonoBehaviour {
     float speed;
     float chunckLength = 20;
 
+    private GameObject chunkHolder;
+    public GameObject ChunkHolder
+    {
+        get
+        {
+            if (chunkHolder == null)
+            {
+                chunkHolder = new GameObject();
+                chunkHolder.transform.parent = this.transform;
+                chunkHolder.transform.name = "ChunkHolder";
+            }
+
+            return chunkHolder;
+        }
+    }
+
     void Start()
     {
         chunckScripts = new IChunck[chuncks.Length];
@@ -28,6 +44,7 @@ public class ChunckSpawner : MonoBehaviour {
         float spawnPos = -chunckLength * amoundOfInterChuncks;
         for (var i =0; i < chuncks.Length; i++) {
             GameObject chunck = Instantiate(chuncks[i], new Vector3(), new Quaternion()) as GameObject;
+            chunck.transform.parent = ChunkHolder.transform;
             chunckScripts[i] = chunck.GetComponent<IChunck>();
             chunckScripts[i].Spawn(-800, speed);
         }
@@ -36,6 +53,7 @@ public class ChunckSpawner : MonoBehaviour {
         for (int i = interChunckScript.Length-1; i >= 0; i--) {
 
             GameObject currInterChunck = Instantiate(interChunck, new Vector3(), new Quaternion())as GameObject;
+            currInterChunck.transform.parent = ChunkHolder.transform;
             interChunckScript[i] = currInterChunck.GetComponent<IChunck>();
 
             if (i != interChunckScript.Length -1) interChunckScript[i].Spawn(spawnPos, speed);

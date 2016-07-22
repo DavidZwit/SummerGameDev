@@ -130,6 +130,10 @@ namespace GameStates
 
         public void Act()
         {
+			if (timeLeft - startTime >= 2 && timeLeft - startTime <= 2.1f) 
+			{
+				Ball.Instance.ShootTheBallFromState ();
+			}
             if (timeLeft - startTime  >= 3) {
                 Exit();
             } else timeLeft += Time.deltaTime;
@@ -137,7 +141,7 @@ namespace GameStates
 
         public StatesEnum Leave()
         {
-			Ball.Instance.ShootTheBallFromState ();
+			//Ball.Instance.ShootTheBallFromState ();
 			NonDestroyableData.GameSpeed = 1f;
             return returnState;
         }

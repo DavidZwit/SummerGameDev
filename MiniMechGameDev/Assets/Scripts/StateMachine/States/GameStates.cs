@@ -161,6 +161,7 @@ namespace GameStates
         public void Enter(GameObject theObject)
         {
 			ScoreManager.Instance.Scores.AddToFails (1);
+
             /* 
 			 * -1 point/backup
 			 * return false; ( back to idle );

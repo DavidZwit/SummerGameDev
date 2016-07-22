@@ -164,7 +164,7 @@ public class Ball : Singleton<Ball>
 
     public void PassBall(Transform t, float s, Transform o)
     {
-
+        this.transform.GetComponent<Rigidbody>().drag = 0;
         this.transform.parent = null;
         ShotBall = true;
         // Debug.Log("Pass ball from : " + t.transform.position + ", to : " + o.transform.position);
@@ -180,7 +180,8 @@ public class Ball : Singleton<Ball>
             // Debug.Log("Hit an obstacle, attempting to go back to : " + Origin.transform.name
             this.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
             _col.transform.FindChild("sheet").GetComponent<ParticleSystem>().Play();
-            PassBall(Origin, PassSpeed / 1.5f, Origin);
+            this.transform.GetComponent<Rigidbody>().drag = 0;
+            PassBall(Origin, PassSpeed *2, Origin);
             CameraShaker.Instance.shakeDuration = .4f;
 
         }

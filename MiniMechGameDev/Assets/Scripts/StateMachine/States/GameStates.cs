@@ -23,9 +23,9 @@ namespace GameStates
 
             if (Ball.Instance.isLeftPlayer)
             {
-                LeftVieuw.transform.AnimateCameraToMe(2);
+                // LeftVieuw.transform.AnimateCameraToMe(2);
             }
-            else RightVieuw.transform.AnimateCameraToMe(2);
+            // else RightVieuw.transform.AnimateCameraToMe(2);
         }
 
         public bool Reason()
@@ -94,7 +94,7 @@ namespace GameStates
             shouldReturn = false;
 
 
-            topVieuw.transform.AnimateCameraToMe(3);
+            //topVieuw.transform.AnimateCameraToMe(3);
 
             returnState = StatesEnum.idle;
 

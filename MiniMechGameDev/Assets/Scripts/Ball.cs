@@ -9,7 +9,7 @@ public class Ball : Singleton<Ball>
 
 	private bool _passTo1 = false;
 	private bool _didHitObj = false;
-    [Range(0, 5)]
+    [Range(0, 15)]
     public float PassSpeed = 2;
     private Transform target;
     public Transform Target
@@ -49,13 +49,15 @@ public class Ball : Singleton<Ball>
             {
                 UpdatedCheck = true;
 
-                if (Target == PlayerPassLineTool.Instance.players[0].transform)
+                if (Target == PlayerPassLineTool.Instance.players[1].transform)
                 {
-                    isLeftPlayer = true;
+					Debug.Log (target.gameObject.name + "First IF, origin :" + Origin + " + Target: " + Target);
+					isLeftPlayer = true;
                 }
                 else  
                 {
-                    isLeftPlayer = false;
+					Debug.Log (target.gameObject.name + "second IF, origin :" + Origin + " + Target: " + Target);
+					isLeftPlayer = false;
                 }
 
                 return true;
@@ -129,7 +131,7 @@ public class Ball : Singleton<Ball>
             Rigidbody rb = this.transform.GetComponent<Rigidbody>();
 
             //rb.AddForce((Target.position - transform.position) * 50 * Time.deltaTime);
-            rb.AddForce((Target.position - transform.position) * 6f * Time.smoothDeltaTime, ForceMode.Impulse);
+			rb.AddForce((Target.position - transform.position) * PassSpeed * Time.smoothDeltaTime, ForceMode.Impulse);
 
             if (rb.drag <= 5f)
                 rb.drag += (1.45f / DistanceToTarget);
@@ -162,7 +164,7 @@ public class Ball : Singleton<Ball>
 
     public void PassBall(Transform t, float s, Transform o)
     {
-        Debug.Log("Pass Ball!");
+
         this.transform.parent = null;
         ShotBall = true;
         // Debug.Log("Pass ball from : " + t.transform.position + ", to : " + o.transform.position);
@@ -180,25 +182,21 @@ public class Ball : Singleton<Ball>
             _col.transform.FindChild("sheet").GetComponent<ParticleSystem>().Play();
             PassBall(Origin, PassSpeed / 1.5f, Origin);
             CameraShaker.Instance.shakeDuration = .4f;
-			_didHitObj = true;
+
         }
     }
 	public void ShootTheBallFromState()
 	{
 		if (Origin == Target) {
 			_passTo1 = _passTo1;
-            // Debug.Log (" _ origin wasnt the target" + Origin + Target);
 		} else {
 			_passTo1 = !_passTo1;
-			// Debug.Log (" origing was the target, i think" + Origin + Target);
 		}
 		if (_passTo1) {
 			PassBall (PlayerPassLineTool.Instance.Players [0].transform, 10, PlayerPassLineTool.Instance.Players [1].transform);
-            // GameObject.Find("Right_View").transform.AnimateCameraToMe(3);
         }
         else {
 			PassBall (PlayerPassLineTool.Instance.Players [1].transform, 10, PlayerPassLineTool.Instance.Players [0].transform);
-            // GameObject.Find("Left_View").transform.AnimateCameraToMe(3);
         }
 
     }

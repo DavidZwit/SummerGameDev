@@ -152,9 +152,13 @@ public class Ball : Singleton<Ball>
 
         if (ScoreCheck == PlayerPassLineTool.Instance.CurrentPlayer) return;
 
+
         ScoreCheck = PlayerPassLineTool.Instance.CurrentPlayer;
-        if(!HitSomething)
+        if (!HitSomething)
+        {
             ScoreManager.Instance.Scores.AddToScore(ScoreManager.Instance.SmallScore);
+            ParticleSpawner.Instance.SpawnParticle(this.transform.position, ParticleSpawner.Instance.particlesList[0]);
+        }
 
         Text[] AllText = FindObjectsOfType<Text>();
         for (int i = 0; i < AllText.Length; i++)
@@ -186,6 +190,8 @@ public class Ball : Singleton<Ball>
     {
         if (_col.transform.tag == "Dummie")
         {
+            ParticleSpawner.Instance.SpawnParticle(_col.transform.position, ParticleSpawner.Instance.particlesList[1]);
+
             HitSomething = true;
             _col.transform.GetComponent<Rigidbody>().isKinematic = false;
             // Debug.Log("Hit an obstacle, attempting to go back to : " + Origin.transform.name
@@ -193,7 +199,8 @@ public class Ball : Singleton<Ball>
             _col.transform.FindChild("sheet").GetComponent<ParticleSystem>().Play();
             // this.transform.GetComponent<Rigidbody>().drag = 0;
             // PassBall(Origin, PassSpeed *2, Origin);
-            CameraShaker.Instance.shakeDuration = .1f;
+            // CameraShaker.Instance.shakeDuration = .1f;
+            CameraShaker.Instance.SmallShake();
 
         }
     }

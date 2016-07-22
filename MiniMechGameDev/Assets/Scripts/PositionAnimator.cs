@@ -9,6 +9,9 @@ public class PositionAnimator : MonoBehaviour
 
     public void Animate(Transform targetPosition, float time, Vector3 offset, Action Done)
     {
+        if (position != null) StopCoroutine(position);
+        if (rotation != null) StopCoroutine(rotation);
+
         position = StartCoroutine(PositionToTarget(targetPosition.position + offset, time, () => { if (Done != null) Done(); }));
         rotation = StartCoroutine(RotateLikeTarget(targetPosition.rotation, time, () => { if (Done != null) Done(); }));
     }

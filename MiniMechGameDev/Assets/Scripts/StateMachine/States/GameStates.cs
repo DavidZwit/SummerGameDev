@@ -23,14 +23,14 @@ namespace GameStates
 
             if (Ball.Instance.isLeftPlayer)
             {
-                // LeftVieuw.transform.AnimateCameraToMe(2);
+                LeftVieuw.transform.AnimateCameraToMe(2);
             }
-            // else RightVieuw.transform.AnimateCameraToMe(2);
+            else RightVieuw.transform.AnimateCameraToMe(2);
         }
 
         public bool Reason()
         {
-			/*if(PlayerPos is in a Chunk)
+            /*if(PlayerPos is in a Chunk)
 			{
 				returnState = StatesEnum.slomo;
 				return false;
@@ -40,11 +40,11 @@ namespace GameStates
 
             if (NonDestroyableData.currentChunck != null)
             {
-			    returnState = StatesEnum.slomo;
+                returnState = StatesEnum.slomo;
                 return false;
             }
 
-			return true;
+            return true;
         }
 
         public void Act()
@@ -71,7 +71,7 @@ namespace GameStates
         GameObject topVieuw;
 
 
-        
+
 
         public Slomo(GameObject _topVieuw)
         {
@@ -81,20 +81,20 @@ namespace GameStates
         Ball _ball;
         public void Enter(GameObject theObject)
         {
-			
-			/*
+
+            /*
 			 * 
 			 * GetComponent solution of the combination
 			 * Set it into a variable.
 			 */
-			NonDestroyableData.GameSpeed = 0.2f;
+            NonDestroyableData.GameSpeed = 0.2f;
 
             startTime = Time.time;
             timeLeft = Time.time;
             shouldReturn = false;
 
 
-            //topVieuw.transform.AnimateCameraToMe(3);
+            topVieuw.transform.AnimateCameraToMe(3);
 
             returnState = StatesEnum.idle;
 
@@ -103,7 +103,7 @@ namespace GameStates
 
         public bool Reason()
         {
-			/*
+            /*
 			 * if(Player Input is the same as the solution)
 			 * {
 			 * 		ReturnState = StatesEnum.Good;
@@ -117,10 +117,13 @@ namespace GameStates
 			 * }
 			 */
 
-            if (Ball.Instance.UpdateScore) {
+            if (Ball.Instance.UpdateScore)
+            {
                 returnState = StatesEnum.good;
                 return false;
-            } else if (shouldReturn) {
+            }
+            else if (shouldReturn)
+            {
                 returnState = StatesEnum.bad;
                 return false;
             }
@@ -130,23 +133,25 @@ namespace GameStates
 
         public void Act()
         {
-			if (timeLeft - startTime >= 2 && timeLeft - startTime <= 2.1f) 
-			{
-				Ball.Instance.ShootTheBallFromState ();
-			}
-            if (timeLeft - startTime  >= 3) {
+            if (timeLeft - startTime >= 2 && timeLeft - startTime <= 2.1f)
+            {
+                Ball.Instance.ShootTheBallFromState();
+            }
+            if (timeLeft - startTime >= 3)
+            {
                 Exit();
-            } else timeLeft += Time.deltaTime;
+            }
+            else timeLeft += Time.deltaTime;
         }
 
         public StatesEnum Leave()
         {
-			//Ball.Instance.ShootTheBallFromState ();
-			NonDestroyableData.GameSpeed = 1f;
+            //Ball.Instance.ShootTheBallFromState ();
+            NonDestroyableData.GameSpeed = 1f;
             return returnState;
         }
 
-        void Exit ()
+        void Exit()
         {
             shouldReturn = true;
         }
@@ -160,8 +165,7 @@ namespace GameStates
 
         public void Enter(GameObject theObject)
         {
-			// ScoreManager.Instance.Scores.AddToFails (1);
-
+            // ScoreManager.Instance.Scores.AddToFails(1);
             /* 
 			 * -1 point/backup
 			 * return false; ( back to idle );
@@ -171,11 +175,17 @@ namespace GameStates
 
         public bool Reason()
         {
+            if (ScoreManager.Instance.Scores.CurrFails == 3)
+            {
+                NonDestroyableData.players[NonDestroyableData.currPlayer] = ScoreManager.Instance.Scores.CurrScore;
 
-			if (ScoreManager.Instance.Scores.CurrFails == 3) {
-				Debug.Log ("I die");
-			} else 
-				returnState = StatesEnum.idle;
+                UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+                //SortPlayers.Instance.Sort();
+
+
+            }
+            else
+                returnState = StatesEnum.idle;
             return false;
         }
 
@@ -198,7 +208,7 @@ namespace GameStates
 
         public void Enter(GameObject theObject)
         {
-			/*
+            /*
 			 * +1 point/backup
 			 * return false; ( back to idle );
 			*/

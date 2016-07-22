@@ -13,6 +13,7 @@ public class ScoreManager : Singleton<ScoreManager>
     void Start()
     {
         int i = ScoreManager.Instance.Scores.CurrScore;
+        NonDestroyableData.currPlayer = NonDestroyableData.names[NonDestroyableData.nameCounter++];
     }
 
 }

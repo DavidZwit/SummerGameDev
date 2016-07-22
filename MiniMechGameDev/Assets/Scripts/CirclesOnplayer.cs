@@ -22,7 +22,7 @@ public class CirclesOnplayer : MonoBehaviour
     {
         //Debug.Log("Previous score: " + PreviouScore + ", Current Score: " + Score);
 		if (ScoreManager.Instance.Scores.CurrScore > PreviouScore) {
-			Debug.Log ("IVEDONEIT");
+			// Debug.Log ("IVEDONEIT");
 			PreviouScore = ScoreManager.Instance.Scores.CurrScore;
 			AnimObjec.SetTrigger ("Level");
 		}

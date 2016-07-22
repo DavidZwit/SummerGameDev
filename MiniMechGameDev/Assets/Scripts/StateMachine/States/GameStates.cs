@@ -23,9 +23,9 @@ namespace GameStates
 
             if (Ball.Instance.isLeftPlayer)
             {
-                LeftVieuw.transform.AnimateCameraToMe(2);
+                LeftVieuw.transform.AnimateCameraToMe(1.0f, Vector3.zero, CameraShaker.Instance.OverwriteOrigin);
             }
-            else RightVieuw.transform.AnimateCameraToMe(2);
+            else RightVieuw.transform.AnimateCameraToMe(1.0f, Vector3.zero, CameraShaker.Instance.OverwriteOrigin);
         }
 
         public bool Reason()
@@ -94,7 +94,7 @@ namespace GameStates
             shouldReturn = false;
 
 
-            topVieuw.transform.AnimateCameraToMe(3);
+            topVieuw.transform.AnimateCameraToMe(1.5f, Vector3.zero, CameraShaker.Instance.OverwriteOrigin);
 
             returnState = StatesEnum.idle;
 

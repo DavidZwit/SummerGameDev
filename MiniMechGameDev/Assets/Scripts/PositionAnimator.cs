@@ -12,6 +12,8 @@ public class PositionAnimator : MonoBehaviour
         if (position != null) StopCoroutine(position);
         if (rotation != null) StopCoroutine(rotation);
 
+        inputs = 0;
+
         position = StartCoroutine(PositionToTarget(targetPosition.position + offset, time, () => { if (Done != null) Done(); }));
         rotation = StartCoroutine(RotateLikeTarget(targetPosition.rotation, time, () => { if (Done != null) Done(); }));
     }
@@ -56,7 +58,7 @@ public class PositionAnimator : MonoBehaviour
 
 public static class ExtentionMethod
 {
-    public static void AnimateCameraToMe(this Transform trans, float time = 2, Vector3 offset = new Vector3(), Action DoneAnimating = null)
+    public static void AnimateCameraToMe(this Transform trans, float time, Vector3 offset = new Vector3(), Action DoneAnimating = null)
     {
         PositionAnimator animationScript = Camera.main.GetComponent<PositionAnimator>();
         animationScript.Animate(trans, time, offset, DoneAnimating);

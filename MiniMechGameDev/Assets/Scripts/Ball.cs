@@ -185,17 +185,17 @@ public class Ball : Singleton<Ball>
         {
             ScoreManager.Instance.Scores.AddToScore(ScoreManager.Instance.SmallScore);
             ParticleSpawner.Instance.SpawnParticle(this.transform.position, ParticleSpawner.Instance.particlesList[0]);
-            Debug.Log(ScoreManager.Instance.Scores.CurrScore);
-        }
 
-        Text[] AllText = FindObjectsOfType<Text>();
-        for (int i = 0; i < AllText.Length; i++)
-        {
-            if (AllText[i].transform.name.Contains("Score"))
+            Text[] AllText = FindObjectsOfType<Text>();
+            for (int i = 0; i < AllText.Length; i++)
             {
-                AllText[i].text = "Score: " + ScoreManager.Instance.Scores.CurrScore.ToString();
-                break;
+                if (AllText[i].transform.name.Contains("CurrentScore"))
+                {
+                    AllText[i].text = "Score: " + ScoreManager.Instance.Scores.CurrScore.ToString();
+                    break;
+                }
             }
+
         }
 
 

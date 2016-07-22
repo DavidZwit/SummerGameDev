@@ -99,7 +99,7 @@ public class PlayerPassLineTool : Singleton<PlayerPassLineTool>
         Vector3 direction = (players[1].transform.position - players[0].transform.position);
         if( Physics.Raycast(players[0].transform.position, direction, out hit, targets) )
         {
-            if (hit.collider.transform.gameObject.tag.Contains("Obstacle"))
+            if (hit.collider.transform.gameObject.tag.Contains("Obstacle") || hit.collider.transform.gameObject.tag.Contains("Dummie"))
             {
                 SetBeamColor(Color.red);
                 return;

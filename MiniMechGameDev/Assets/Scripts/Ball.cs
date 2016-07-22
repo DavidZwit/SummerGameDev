@@ -39,7 +39,7 @@ public class Ball : Singleton<Ball>
         }
     }
 
-
+    private int ScoreCheck = 0;
     private bool UpdatedCheck = false;
     public bool UpdateScore
     {
@@ -91,6 +91,8 @@ public class Ball : Singleton<Ball>
         }
     }
 
+    private bool HitSomething = false;
+
     private float DistanceToTarget
     {
         get { return Vector3.Distance(this.transform.position, target.position); }
@@ -107,6 +109,8 @@ public class Ball : Singleton<Ball>
 
 		if (Origin == null)
 			Origin = Target;
+
+        ScoreCheck = PlayerPassLineTool.Instance.CurrentPlayer;
 
     }
 
@@ -147,7 +151,12 @@ public class Ball : Singleton<Ball>
 
         if (!UpdateScore) return;
 
-        ScoreManager.Instance.Scores.AddToScore(ScoreManager.Instance.SmallScore);
+        if (ScoreCheck == PlayerPassLineTool.Instance.CurrentPlayer) return;
+
+        ScoreCheck = PlayerPassLineTool.Instance.CurrentPlayer;
+        if(!HitSomething)
+            ScoreManager.Instance.Scores.AddToScore(ScoreManager.Instance.SmallScore);
+
         Text[] AllText = FindObjectsOfType<Text>();
         for (int i = 0; i < AllText.Length; i++)
         {
@@ -164,6 +173,7 @@ public class Ball : Singleton<Ball>
 
     public void PassBall(Transform t, float s, Transform o)
     {
+        HitSomething = false;
         this.transform.GetComponent<Rigidbody>().drag = 0;
         this.transform.parent = null;
         ShotBall = true;
@@ -173,16 +183,18 @@ public class Ball : Singleton<Ball>
         Origin = o;
     }
 
-    void OnTriggerEnter(Collider _col)
+    void OnCollisionEnter(Collision _col)
     {
-        if (_col.tag == "Obstacles")
+        if (_col.transform.tag == "Dummie")
         {
+            HitSomething = true;
+            _col.transform.GetComponent<Rigidbody>().isKinematic = false;
             // Debug.Log("Hit an obstacle, attempting to go back to : " + Origin.transform.name
-            this.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            // this.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
             _col.transform.FindChild("sheet").GetComponent<ParticleSystem>().Play();
-            this.transform.GetComponent<Rigidbody>().drag = 0;
-            PassBall(Origin, PassSpeed *2, Origin);
-            CameraShaker.Instance.shakeDuration = .4f;
+            // this.transform.GetComponent<Rigidbody>().drag = 0;
+            // PassBall(Origin, PassSpeed *2, Origin);
+            CameraShaker.Instance.shakeDuration = .1f;
 
         }
     }

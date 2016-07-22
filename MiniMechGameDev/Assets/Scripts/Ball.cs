@@ -71,22 +71,21 @@ public class Ball : Singleton<Ball>
     {
         get
         {
-            if (DistanceToTarget <= ReceiveOffset)
-            {
-                if (Target.GetComponent<PlayerInfo>().Left)
-                {
-                    PlayerPassLineTool.Instance.CurrentPlayer = 1;
-                }
-                else
-                {
-                    PlayerPassLineTool.Instance.CurrentPlayer = -1;
-                }
-
-                this.transform.parent = Target;
-                ShotBall = false;
-                return true;
-            }
-
+			if (DistanceToTarget <= ReceiveOffset) {
+				if (Target.GetComponent<PlayerInfo> ().Left) {
+					PlayerPassLineTool.Instance.CurrentPlayer = 1;
+					target.GetComponent<CirclesOnplayer> ().StartParticles ();
+				} else {
+					PlayerPassLineTool.Instance.CurrentPlayer = -1;
+					target.GetComponent<CirclesOnplayer> ().StartParticles ();
+				}
+				this.transform.parent = Target;
+				ShotBall = false;
+				return true;
+			} else {
+				target.GetComponent<CirclesOnplayer> ().StopParticles ();
+			}
+			target.GetComponent<CirclesOnplayer> ().StopParticles ();
             return false;
         }
     }

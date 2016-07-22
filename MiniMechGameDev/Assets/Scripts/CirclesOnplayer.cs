@@ -21,19 +21,18 @@ public class CirclesOnplayer : MonoBehaviour
     void Update()
     {
         //Debug.Log("Previous score: " + PreviouScore + ", Current Score: " + Score);
-        if(ScoreManager.Instance.Scores.CurrScore > PreviouScore)
-        {
-            Debug.Log("IVEDONEIT");
-            PreviouScore = ScoreManager.Instance.Scores.CurrScore;
-            AnimObjec.SetTrigger("Level");
-        }
+		if (ScoreManager.Instance.Scores.CurrScore > PreviouScore) {
+			Debug.Log ("IVEDONEIT");
+			PreviouScore = ScoreManager.Instance.Scores.CurrScore;
+			AnimObjec.SetTrigger ("Level");
+		}
     }
 
     void OnTriggerEnter(Collider _Col)
     {
         if (_Col.tag == "Player")
         {
-            Debug.Log("animate me");
+            Debug.Log("animate me"); 	
 
             if (AnimObjec != null)
                 AnimObjec.SetBool("HasBall", true);
@@ -52,4 +51,14 @@ public class CirclesOnplayer : MonoBehaviour
             }
         }
     }
+	public void StartParticles()
+	{
+		if (AnimObjec != null)
+			AnimObjec.SetBool("HasBall", true);
+	}
+	public void StopParticles()
+	{
+		if (AnimObjec != null)
+			AnimObjec.SetBool("HasBall", false);
+	}
 }

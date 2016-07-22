@@ -52,7 +52,6 @@ public class BasicChunck : MonoBehaviour, IChunck {
         transform.position = new Vector3(0, 0, zPos);
         moveSpeed = unitsPerSecond;
 
-        print(startPositions.Count);
         for (int i = 0; i < startPositions.Count; i++)
         {
             PosAndRot curr = startPositions[i];

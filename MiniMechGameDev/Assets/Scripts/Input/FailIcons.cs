@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class FailIcons : MonoBehaviour {
@@ -17,17 +18,21 @@ public class FailIcons : MonoBehaviour {
     {
         if(ScoreManager.Instance.Scores.CurrFails== 1)
         {
-            AnimObject.SetTrigger("Live1");
+            // this.transform.GetChild(0).transform.GetComponent<Image>().enabled = true;
+            // AnimObject.SetTrigger("Live1");
+            this.transform.GetChild(0).transform.GetComponent<Animator>().enabled = true;
         }
 
         if (ScoreManager.Instance.Scores.CurrFails == 2)
         {
-            AnimObject.SetTrigger("Live2");
+            this.transform.GetChild(1).transform.GetComponent<Animator>().enabled = true;
+            // AnimObject.SetTrigger("Live2");
         }
 
         if (ScoreManager.Instance.Scores.CurrFails == 3)
         {
-            AnimObject.SetTrigger("Live3");
+            this.transform.GetChild(2).transform.GetComponent<Animator>().enabled = true;
+            // AnimObject.SetTrigger("Live3");
         }
     }
 }

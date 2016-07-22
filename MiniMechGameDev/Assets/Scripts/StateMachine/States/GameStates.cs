@@ -160,7 +160,7 @@ namespace GameStates
 
         public void Enter(GameObject theObject)
         {
-			ScoreManager.Instance.Scores.AddToFails (1);
+			// ScoreManager.Instance.Scores.AddToFails (1);
 
             /* 
 			 * -1 point/backup
@@ -171,6 +171,7 @@ namespace GameStates
 
         public bool Reason()
         {
+
 			if (ScoreManager.Instance.Scores.CurrFails == 3) {
 				Debug.Log ("I die");
 			} else 

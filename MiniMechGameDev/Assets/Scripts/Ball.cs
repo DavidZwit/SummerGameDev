@@ -66,7 +66,34 @@ public class Ball : Singleton<Ball>
             return false;
         }
     }
+    private bool ReceivedBall
+    {
+        get
+        {
+            if (DistanceToTarget <= ReceiveOffset)
+            {
+                if (Target.GetComponent<PlayerInfo>().Left)
+                {
+                    PlayerPassLineTool.Instance.CurrentPlayer = 1;
+                    target.GetComponent<CirclesOnplayer>().StartParticles();
+                }
+                else
+                {
+                    PlayerPassLineTool.Instance.CurrentPlayer = -1;
+                    target.GetComponent<CirclesOnplayer>().StartParticles();
+                }
+                this.transform.parent = Target;
+                ShotBall = false;
+                return true;
+            }
+            else
+            {
 
+            }
+            return false;
+        }
+    }
+    /*
     private bool ReceivedBall
     {
         get
@@ -90,7 +117,7 @@ public class Ball : Singleton<Ball>
             return false;
         }
     }
-
+    */
     private bool HitSomething = false;
 
     private float DistanceToTarget
@@ -159,6 +186,7 @@ public class Ball : Singleton<Ball>
         {
             ScoreManager.Instance.Scores.AddToScore(ScoreManager.Instance.SmallScore);
             ParticleSpawner.Instance.SpawnParticle(this.transform.position, ParticleSpawner.Instance.particlesList[0]);
+            Debug.Log(ScoreManager.Instance.Scores.CurrScore);
         }
 
         Text[] AllText = FindObjectsOfType<Text>();
@@ -175,6 +203,21 @@ public class Ball : Singleton<Ball>
         // Debug.Log("Current score : " + ScoreManager.Instance.Scores.CurrScore);
     }
 
+
+    public void PassBall(Transform t, float s, Transform o)
+    {
+
+        HitSomething = false;
+        this.transform.GetComponent<Rigidbody>().drag = 0;
+        this.transform.parent = null;
+        ShotBall = true;
+        target.GetComponent<CirclesOnplayer>().StopParticles();
+        // Debug.Log("Pass ball from : " + t.transform.position + ", to : " + o.transform.position);
+        Target = t;
+        PassSpeed = s;
+        Origin = o;
+    }
+    /*
     public void PassBall(Transform t, float s, Transform o)
     {
         HitSomething = false;
@@ -186,11 +229,14 @@ public class Ball : Singleton<Ball>
         PassSpeed = s;
         Origin = o;
     }
-
+    */
     void OnCollisionEnter(Collision _col)
     {
         if (_col.transform.tag == "Dummie")
         {
+            if(!HitSomething)
+                ScoreManager.Instance.Scores.AddToFails (1);
+
             ParticleSpawner.Instance.SpawnParticle(_col.transform.position, ParticleSpawner.Instance.particlesList[1]);
 
             HitSomething = true;
